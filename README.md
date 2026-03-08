@@ -4,12 +4,20 @@ Shared API contracts (Protocol Buffers) for CoverIt services.
 
 ## Install
 
-**In your project (api/frontend):**
-
+**Production (main branch):**
 ```json
 {
   "dependencies": {
     "@coveritlabs/contracts": "github:CoveritLabs/coverit-contracts#main"
+  }
+}
+```
+
+**Development (develop branch):**
+```json
+{
+  "dependencies": {
+    "@coveritlabs/contracts": "github:CoveritLabs/coverit-contracts#develop"
   }
 }
 ```
@@ -46,16 +54,18 @@ npm unlink @coveritlabs/contracts && npm install
 
 ## Feature Branch Workflow
 
-**1. Create branch & edit:**
+**1. Create feature branch from develop:**
 
 ```bash
+git checkout develop
+git pull
 git checkout -b feat/new-feature
 # Edit auth/auth.proto
 npm run generate && npm run lint
 git commit -m "feat: add new types" && git push
 ```
 
-**2. Use in api/frontend:**
+**2. Use in api/frontend feature branch:**
 ```json
 {
   "dependencies": {
@@ -64,9 +74,18 @@ git commit -m "feat: add new types" && git push
 }
 ```
 
-**3. Merge order:**
-- Merge contracts → `main` first
-- Update api/frontend to `#main`, then merge
+**3. Merge flow:**
+- PR: contracts `feat/new-feature` → `develop`
+- PR: api/frontend `feat/new-feature` → `develop` (update to contracts#develop)
+- When ready for production:
+  - PR: contracts `develop` → `main`
+  - PR: api/frontend `develop` → `main` (update to contracts#main)
+
+## Branch Strategy
+
+- `main` = Production contracts (stable)
+- `develop` = Staging contracts (tested)
+- `feat/*` = New contracts under development
 
 ## Commands
 
