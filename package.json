@@ -16,7 +16,7 @@
         "url": "https://github.com/CoveritLabs/coverit-contracts.git"
     },
     "scripts": {
-        "generate": "buf generate",
+        "generate": "buf generate && node scripts/gen-index.mjs",
         "lint": "buf lint",
         "build": "npm run generate && tsc",
         "release": "semantic-release",
