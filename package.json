@@ -6,18 +6,21 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
-        "dist",
-        "auth",
-        "common",
-        "buf.yaml",
-        "buf.gen.yaml"
+        "dist"
     ],
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/CoveritLabs/coverit-contracts.git"
+    },
     "scripts": {
         "generate": "buf generate",
         "lint": "buf lint",
-        "build": "tsc",
-        "commit": "cz",
-        "prepublishOnly": "npm run generate && npm run build"
+        "build": "npm run generate && tsc",
+        "prepare": "npm run build",
+        "commit": "cz"
     },
     "config": {
         "commitizen": {

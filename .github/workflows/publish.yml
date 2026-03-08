@@ -1,0 +1,45 @@
+# Copyright (c) 2026 CoverIt Labs. All Rights Reserved.
+# Proprietary and confidential. Unauthorized use is strictly prohibited.
+# See LICENSE file in the project root for full license information.
+
+name: Publish to GitHub Packages
+
+on:
+  push:
+    branches: [main, develop]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Set pre-release version (develop only)
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          BASE_VERSION=$(node -p "require('./package.json').version")
+          npm version "${BASE_VERSION}-dev.${GITHUB_RUN_NUMBER}" --no-git-tag-version
+
+      - name: Publish stable
+        if: github.ref == 'refs/heads/main'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish pre-release
+        if: github.ref == 'refs/heads/develop'
+        run: npm publish --tag dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
