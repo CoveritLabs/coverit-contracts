@@ -28,6 +28,10 @@ message ResetPasswordRequest {
   string new_password = 2;
 }
 
+message RefreshRequest {
+  string refresh_token = 1;
+}
+
 ////////////////
 // Response DTOs
 ////////////////
