@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package coverit.common;
+
+// Shared public-facing DTOs reusable across domains.
+
+message UserInfo {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+}
+
+message TokenPair {
+  string access_token = 1;
+  string refresh_token = 2;
+}

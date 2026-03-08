@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# branch name validation
+npx coverit-validate-branch
