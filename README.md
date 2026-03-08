@@ -21,6 +21,15 @@ npm login --registry=https://npm.pkg.github.com --scope=@coveritlabs
 npm install @coveritlabs/contracts
 ```
 
+**Development (develop branch):**
+```json
+{
+  "dependencies": {
+    "@coveritlabs/contracts": "github:CoveritLabs/coverit-contracts#develop"
+  }
+}
+```
+
 **Import types:**
 ```typescript
 import { AuthRequest, AuthResponse } from '@coveritlabs/contracts'
