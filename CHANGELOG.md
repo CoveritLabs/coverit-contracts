@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.0.0...v1.1.0) (2026-03-08)
+
+
+### Features
+
+* add index generation script ([5777a2f](https://github.com/CoveritLabs/coverit-contracts/commit/5777a2f0444c08d378cf58482c947ab808070f47))
+
 # 1.0.0 (2026-03-08)
 
 
