@@ -12,7 +12,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - uses: actions/checkout@v4
@@ -26,20 +26,8 @@ jobs:
 
       - run: npm run build
 
-      - name: Set pre-release version (develop only)
-        if: github.ref == 'refs/heads/develop'
-        run: |
-          BASE_VERSION=$(node -p "require('./package.json').version")
-          npm version "${BASE_VERSION}-dev.${GITHUB_RUN_NUMBER}" --no-git-tag-version
-
-      - name: Publish stable
-        if: github.ref == 'refs/heads/main'
-        run: npm publish
+      - name: Run semantic-release
+        uses: semantic-release/semantic-release@v20
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish pre-release
-        if: github.ref == 'refs/heads/develop'
-        run: npm publish --tag dev
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
