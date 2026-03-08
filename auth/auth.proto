@@ -32,10 +32,6 @@ message ResetPasswordRequest {
 // Response DTOs
 ////////////////
 
-message SignupResponse {
-  string message = 1;
-}
-
 message LoginResponse {
   coverit.common.UserInfo user = 1;
   coverit.common.TokenPair tokens = 2;
@@ -46,22 +42,3 @@ message RefreshResponse {
   coverit.common.TokenPair tokens = 2;
 }
 
-message LogoutResponse {
-  string message = 1;
-}
-
-message ForgotPasswordResponse {
-  string message = 1;
-}
-
-message ResetPasswordResponse {
-  string message = 1;
-}
-
-////////
-// Error
-////////
-
-message ErrorResponse {
-  string message = 1;
-}
