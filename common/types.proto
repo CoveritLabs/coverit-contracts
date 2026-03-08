@@ -14,3 +14,15 @@ message TokenPair {
   string access_token = 1;
   string refresh_token = 2;
 }
+
+// Generic message response
+message MessageResponse {
+  string message = 1;
+}
+
+// Generic error response
+message ErrorResponse {
+  string error = 1;
+  string message = 2;
+  int32 status_code = 3;
+}

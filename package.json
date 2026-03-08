@@ -3,10 +3,10 @@
     "version": "0.1.0",
     "description": "CoverIt shared API contracts — Protocol Buffer definitions and generated TypeScript types",
     "type": "commonjs",
-    "main": "gen/ts/index.js",
-    "types": "gen/ts/index.d.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "files": [
-        "gen/ts",
+        "dist",
         "auth",
         "common",
         "buf.yaml",
@@ -15,14 +15,17 @@
     "scripts": {
         "generate": "buf generate",
         "lint": "buf lint",
-        "build": "buf generate",
+        "build": "tsc",
         "commit": "cz",
-        "prepublishOnly": "npm run generate"
+        "prepublishOnly": "npm run generate && npm run build"
     },
     "config": {
         "commitizen": {
             "path": "@commitlint/cz-commitlint"
         }
+    },
+    "dependencies": {
+        "@bufbuild/protobuf": "^2.5.0"
     },
     "devDependencies": {
         "@commitlint/cli": "^20.4.3",
@@ -30,9 +33,9 @@
         "@commitlint/cz-commitlint": "^20.4.3",
         "@coveritlabs/git-hooks": "github:CoveritLabs/.github",
         "@bufbuild/buf": "^1.50.0",
-        "@bufbuild/protobuf": "^2.5.0",
         "@bufbuild/protoc-gen-es": "^2.5.0",
         "commitizen": "^4.3.1",
-        "husky": "^9.1.7"
+        "husky": "^9.1.7",
+        "typescript": "^5.8.3"
     }
 }
