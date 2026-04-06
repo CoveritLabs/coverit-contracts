@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package coverit.application;
+import "validate/validate.proto";
+
+///////////////
+// Request DTOs
+///////////////
+
+message CreateTargetApplicationRequest {
+  string name = 1 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 100
+  ];
+
+  string base_url = 2 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 200
+  ];
+}
+
+message UpdateTargetApplicationRequest {
+  optional string name = 1 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 100
+  ];
+
+  optional string base_url = 2 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 200
+  ];
+}
+
+message CreateTargetApplicationVersionRequest {
+  string version = 1 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 50
+  ];
+}
+
+message CreateRegressionCodebaseRequest {
+  string framework_name = 1 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 50
+  ];
+
+  string repository_url = 2 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 200
+  ];
+
+  optional string api_key = 3 [
+    (validate.rules).string.max_len = 200
+  ];
+}
+
+message UpdateRegressionCodebaseRequest {
+  optional string framework_name = 1 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 50
+  ];
+
+  optional string repository_url = 2 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 200
+  ];
+
+  optional string api_key = 3 [
+    (validate.rules).string.max_len = 200
+  ];
+}

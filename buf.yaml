@@ -1,7 +1,9 @@
 version: v2
 modules:
-  - path: .
+  - path: protos
     name: buf.build/coveritlabs/contracts
+deps:
+  - buf.build/envoyproxy/protoc-gen-validate
 lint:
   use:
     - STANDARD

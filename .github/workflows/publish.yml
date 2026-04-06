@@ -26,6 +26,8 @@ jobs:
 
       - run: npm ci --ignore-scripts
 
+      - run: npx buf dep update
+
       - run: npm run build
 
       - name: Run semantic-release
