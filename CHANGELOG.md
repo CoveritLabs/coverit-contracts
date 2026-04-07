@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/CoveritLabs/coverit-contracts/compare/v1.2.1...v1.2.2) (2026-04-07)
+
+
+### Bug Fixes
+
+* update the target application to hold multiple versions ([043505f](https://github.com/CoveritLabs/coverit-contracts/commit/043505ffa48d3e8755f6ee0a5393622e1270cc57))
+
 # [1.2.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.2.0...v1.2.1) (2026-04-07)
 
 
