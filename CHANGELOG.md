@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.1.0...v1.2.0) (2026-04-07)
+
+
+### Bug Fixes
+
+* resolve validation files issue ([36c6fd7](https://github.com/CoveritLabs/coverit-contracts/commit/36c6fd76a1bce6f94e01fe57bcfc9e5faf34b922))
+
+
+### Features
+
+* add project DTO responses ([045d26f](https://github.com/CoveritLabs/coverit-contracts/commit/045d26fe00d98e75c2c0b0f8b3286568d4f57679))
+* add proto definitions for project management ([24c78da](https://github.com/CoveritLabs/coverit-contracts/commit/24c78dacd62ca0b3bd61b8b152487411b68775a9))
+
 # [1.1.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.0.0...v1.1.0) (2026-03-08)
 
 
