@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package coverit.project;
+import "common/types.proto";
 import "validate/validate.proto";
 
 ///////////////
@@ -43,4 +44,24 @@ message RemoveMembersRequest {
     (validate.rules).repeated.max_items = 100,
     (validate.rules).repeated.items.string.email = true
   ];
+}
+
+////////////////
+// Response DTOs
+////////////////
+
+message CreateProjectResponse {
+  string id = 1;
+}
+
+message ProjectResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  repeated Member members = 4;
+}
+
+message Member {
+  coverit.common.UserInfo user = 1;
+  string role = 2;
 }
