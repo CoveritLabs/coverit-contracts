@@ -69,3 +69,24 @@ message UpdateRegressionCodebaseRequest {
     (validate.rules).string.max_len = 200
   ];
 }
+
+////////////////
+// Response DTOs
+////////////////
+
+message CreateTargetApplicationResponse {
+  string id = 1;
+}
+
+message TargetApplicationResponse {
+  string id = 1;
+  string name = 2;
+  string base_url = 3;
+  string version = 4;
+}
+
+message RegressionCodebaseResponse {
+  string id = 1;
+  string framework_name = 2;
+  string repository_url = 3;
+}
