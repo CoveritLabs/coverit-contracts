@@ -47,11 +47,9 @@ message AddMembersRequest {
   ];
 }
 
-message UpdateMembersRequest {
-  repeated MemberRequest members = 1 [
-    (validate.rules).repeated.min_items = 1,
-    (validate.rules).repeated.max_items = 100
-  ];
+message UpdateMemberRequest {
+  string id = 1;
+  string role = 2;
 }
 
 message RemoveMembersRequest {
