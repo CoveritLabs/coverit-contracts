@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.3.0...v1.3.1) (2026-04-08)
+
+
+### Bug Fixes
+
+* use correct update message structure ([c4cef56](https://github.com/CoveritLabs/coverit-contracts/commit/c4cef56fa75a95b335e50b27a74f7d60dcb14f2b))
+
 # [1.3.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.2.3...v1.3.0) (2026-04-08)
 
 
