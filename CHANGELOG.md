@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/CoveritLabs/coverit-contracts/compare/v1.2.2...v1.2.3) (2026-04-08)
+
+
+### Bug Fixes
+
+* refactor AddMembersRequest to use MemberRequest for better validation ([1b0896a](https://github.com/CoveritLabs/coverit-contracts/commit/1b0896a35a1ba6c2332bb37d4d328a7bd0feeca2))
+
 ## [1.2.2](https://github.com/CoveritLabs/coverit-contracts/compare/v1.2.1...v1.2.2) (2026-04-07)
 
 
