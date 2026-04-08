@@ -30,11 +30,20 @@ message UpdateProjectRequest {
   ];
 }
 
+message MemberRequest {
+  string email = 1 [
+    (validate.rules).string.email = true,
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 100
+  ];
+
+  string role = 2;
+}
+
 message AddMembersRequest {
-  repeated string emails = 1 [
+  repeated MemberRequest members = 1 [
     (validate.rules).repeated.min_items = 1,
-    (validate.rules).repeated.max_items = 100,
-    (validate.rules).repeated.items.string.email = true
+    (validate.rules).repeated.max_items = 100
   ];
 }
 
