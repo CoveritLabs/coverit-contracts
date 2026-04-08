@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.2.3...v1.3.0) (2026-04-08)
+
+
+### Features
+
+* add UpdateMembersRequest message for member updates ([612c394](https://github.com/CoveritLabs/coverit-contracts/commit/612c394da9a97cdec4446328b5f28dc0132b2610))
+
 ## [1.2.3](https://github.com/CoveritLabs/coverit-contracts/compare/v1.2.2...v1.2.3) (2026-04-08)
 
 

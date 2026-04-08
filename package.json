@@ -1,6 +1,6 @@
 {
     "name": "@coveritlabs/contracts",
-    "version": "1.2.3",
+    "version": "1.3.0",
     "description": "CoverIt shared API contracts — Protocol Buffer definitions and generated TypeScript types",
     "type": "commonjs",
     "main": "dist/index.js",
