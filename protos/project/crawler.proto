@@ -1,0 +1,131 @@
+syntax = "proto3";
+
+package coverit.crawler;
+
+import "validate/validate.proto";
+
+///////////////
+// Enums
+///////////////
+
+enum CrawlStatus {
+  CRAWL_STATUS_UNSPECIFIED = 0;
+  CRAWL_STATUS_PENDING = 1;
+  CRAWL_STATUS_RUNNING = 2;
+  CRAWL_STATUS_COMPLETED = 3;
+  CRAWL_STATUS_FAILED = 4;
+  CRAWL_STATUS_ABORTED = 5;
+}
+
+enum CrawlTriggerType {
+  CRAWL_TRIGGER_TYPE_UNSPECIFIED = 0;
+  CRAWL_TRIGGER_TYPE_MANUAL = 1;
+  CRAWL_TRIGGER_TYPE_SCHEDULED = 2;
+  CRAWL_TRIGGER_TYPE_CI_TRIGGER = 3;
+  CRAWL_TRIGGER_TYPE_WEBHOOK = 4;
+}
+
+///////////////
+// Messages
+///////////////
+
+message CrawlConfig {
+  int32 max_states = 1 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 100000
+  ];
+
+  int32 max_depth = 2 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 1000
+  ];
+
+  repeated string include_url_patterns = 3 [
+    (validate.rules).repeated.max_items = 100,
+    (validate.rules).repeated.items.string.min_len = 1,
+    (validate.rules).repeated.items.string.max_len = 2048
+  ];
+
+  repeated string exclude_url_patterns = 4 [
+    (validate.rules).repeated.max_items = 100,
+    (validate.rules).repeated.items.string.min_len = 1,
+    (validate.rules).repeated.items.string.max_len = 2048
+  ];
+
+  bool enable_semantic_decisions = 5;
+  bool headless = 6;
+
+  int32 timeout_seconds = 7 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 86400
+  ];
+}
+
+///////////////
+// Request DTOs
+///////////////
+
+message CreateCrawlSessionRequest {
+  CrawlTriggerType trigger_type = 1 [
+    (validate.rules).enum.defined_only = true
+  ];
+
+  CrawlConfig crawl_config = 2;
+}
+
+
+
+///////////////
+// Response DTOs
+///////////////
+
+message CrawlSessionResponse {
+  string id = 1 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 128
+  ];
+
+  string app_version_id = 2 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 128
+  ];
+
+  CrawlTriggerType trigger_type = 3 [
+    (validate.rules).enum.defined_only = true
+  ];
+
+  CrawlStatus status = 4;
+
+  int32 state_count = 5 [
+    (validate.rules).int32.gte = 0
+  ];
+
+  int32 transition_count = 6 [
+    (validate.rules).int32.gte = 0
+  ];
+
+  string started_at = 7 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  string finished_at = 8 [
+    (validate.rules).string.max_len = 40
+  ];
+}
+
+message CrawlSessionListResponse {
+  repeated CrawlSessionResponse sessions = 1;
+
+  int32 total_count = 2 [
+    (validate.rules).int32.gte = 0
+  ];
+
+  int32 current_page = 3 [
+    (validate.rules).int32.gte = 1
+  ];
+
+  int32 page_size = 4 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 100
+  ];
+}
