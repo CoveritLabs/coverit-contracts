@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.3.1...v1.4.0) (2026-04-11)
+
+
+### Bug Fixes
+
+* revert version to 1.3.1 in package.json and package-lock.json ([1eddd16](https://github.com/CoveritLabs/coverit-contracts/commit/1eddd16a1e48f990ae3b2efa2cbb2102551b5f5f))
+
+
+### Features
+
+* add base crawler session definitions ([#6](https://github.com/CoveritLabs/coverit-contracts/issues/6)) ([f4792f3](https://github.com/CoveritLabs/coverit-contracts/commit/f4792f3f4d3855e4d04957bca08d14fa505524a3)), closes [#5](https://github.com/CoveritLabs/coverit-contracts/issues/5)
+
 ## [1.3.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.3.0...v1.3.1) (2026-04-08)
 
 
