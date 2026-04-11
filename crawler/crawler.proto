@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package coverit.crawler;
+
+///////////////
+// Enums
+///////////////
+
+enum CrawlStatus {
+  CRAWL_STATUS_UNSPECIFIED = 0;
+  CRAWL_STATUS_PENDING = 1;
+  CRAWL_STATUS_RUNNING = 2;
+  CRAWL_STATUS_COMPLETED = 3;
+  CRAWL_STATUS_FAILED = 4;
+  CRAWL_STATUS_ABORTED = 5;
+}
+
+enum CrawlTriggerType {
+  CRAWL_TRIGGER_TYPE_UNSPECIFIED = 0;
+  CRAWL_TRIGGER_TYPE_MANUAL = 1;
+  CRAWL_TRIGGER_TYPE_SCHEDULED = 2;
+  CRAWL_TRIGGER_TYPE_CI_TRIGGER = 3;
+  CRAWL_TRIGGER_TYPE_WEBHOOK = 4;
+}
+
+///////////////
+// Messages
+///////////////
+
+message CrawlConfig {
+  int32 max_states = 1;
+  int32 max_depth = 2;
+  repeated string include_url_patterns = 3;
+  repeated string exclude_url_patterns = 4;
+  bool enable_semantic_decisions = 5;
+  bool headless = 6;
+  int32 timeout_seconds = 7;
+}
+
+message AbstractState {
+  string id = 1;
+  string state_hash = 2;
+  string screenshot_url = 3;
+}
+
+message ActionLocator {
+  string id = 1;
+  string selector = 2;
+  string state_id = 3;
+}
+
+///////////////
+// Request/Response DTOs
+///////////////
+
+message CreateCrawlSessionRequest {
+  CrawlTriggerType trigger_type = 1;
+  CrawlConfig crawl_config = 2;
+}
+
+message CrawlSessionResponse {
+  string id = 1;
+  string app_version_id = 2;
+  CrawlTriggerType trigger_type = 3;
+  CrawlStatus status = 4;
+  int32 state_count = 5;
+  int32 transition_count = 6;
+  string started_at = 7;
+  string finished_at = 8;
+  string error_message = 9;
+}
+
+message CrawlSessionListResponse {
+  repeated CrawlSessionResponse sessions = 1;
+  int32 total_count = 2;
+  int32 current_page = 3;
+  int32 page_size = 4;
+}
