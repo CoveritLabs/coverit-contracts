@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.3.1...v1.4.0) (2026-04-11)
+
+
+### Bug Fixes
+
+* move crawler file to protos folder ([aa106d8](https://github.com/CoveritLabs/coverit-contracts/commit/aa106d82eba8d85654a209356612677d7c4102cd))
+
+
+### Features
+
+* added base crawler session responses and request defintions ([#5](https://github.com/CoveritLabs/coverit-contracts/issues/5)) ([b4d7bb8](https://github.com/CoveritLabs/coverit-contracts/commit/b4d7bb8fd42cd53b6ecec8dab05b690cce6bd738))
+
 ## [1.3.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.3.0...v1.3.1) (2026-04-08)
 
 
