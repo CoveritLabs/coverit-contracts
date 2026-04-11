@@ -1,7 +1,8 @@
 syntax = "proto3";
 
-package coverit.project;
-import "common/types.proto";
+package coverit.project.v1;
+
+import "coverit/common/v1/types.proto";
 import "validate/validate.proto";
 
 ///////////////
@@ -76,6 +77,6 @@ message ProjectResponse {
 }
 
 message Member {
-  coverit.common.UserInfo user = 1;
+  coverit.common.v1.UserInfo user = 1;
   string role = 2;
 }

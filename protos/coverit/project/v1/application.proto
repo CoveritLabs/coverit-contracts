@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-package coverit.application;
+package coverit.project.v1;
+
 import "validate/validate.proto";
 
 ///////////////

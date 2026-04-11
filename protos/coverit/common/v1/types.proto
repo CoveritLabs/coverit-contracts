@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package coverit.common;
+package coverit.common.v1;
 
 // Shared public-facing DTOs reusable across domains.
 

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package coverit.crawler;
+package coverit.crawler.v1;
 
 import "validate/validate.proto";
 
@@ -73,8 +73,6 @@ message CreateCrawlSessionRequest {
   CrawlConfig crawl_config = 2;
 }
 
-
-
 ///////////////
 // Response DTOs
 ///////////////
@@ -110,6 +108,10 @@ message CrawlSessionResponse {
 
   string finished_at = 8 [
     (validate.rules).string.max_len = 40
+  ];
+
+  string error_message = 9 [
+    (validate.rules).string.max_len = 1024
   ];
 }
 

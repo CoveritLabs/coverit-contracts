@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package coverit.auth;
+package coverit.auth.v1;
 
-import "common/types.proto";
+import "coverit/common/v1/types.proto";
 
 ///////////////
 // Request DTOs
@@ -37,12 +37,11 @@ message RefreshRequest {
 ////////////////
 
 message LoginResponse {
-  coverit.common.UserInfo user = 1;
-  coverit.common.TokenPair tokens = 2;
+  coverit.common.v1.UserInfo user = 1;
+  coverit.common.v1.TokenPair tokens = 2;
 }
 
 message RefreshResponse {
   string message = 1;
-  coverit.common.TokenPair tokens = 2;
+  coverit.common.v1.TokenPair tokens = 2;
 }
-

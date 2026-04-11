@@ -114,8 +114,7 @@ npm run commit     # Commitizen prompt
 ## Structure
 
 ```
-auth/      # Auth domain protos
-common/    # Shared types
+coverit/   # Versioned proto packages
 gen/ts/    # Generated TS (gitignored, intermediate)
 dist/      # Compiled output (gitignored, published)
 ```
