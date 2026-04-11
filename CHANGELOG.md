@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.4.0...v1.5.0) (2026-04-11)
+
+
+### Features
+
+* add crawler session definitions ([d35f3e5](https://github.com/CoveritLabs/coverit-contracts/commit/d35f3e533067264ad34392377743a5898e9d035b))
+* reorganize proto files into versioned packages and remove deprecated definitions ([b8f55dc](https://github.com/CoveritLabs/coverit-contracts/commit/b8f55dcfa70fbf8392a38732a5f492f910672bac))
+
 # [1.4.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.3.1...v1.4.0) (2026-04-11)
 
 
