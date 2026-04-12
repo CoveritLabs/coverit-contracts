@@ -61,62 +61,61 @@ message CrawlConfig {
   ];
 }
 
-///////////////
-// Request DTOs
-///////////////
-
-message CreateCrawlSessionRequest {
-  CrawlTriggerType trigger_type = 1 [
-    (validate.rules).enum.defined_only = true
-  ];
-
-  CrawlConfig crawl_config = 2;
-}
-
-///////////////
-// Response DTOs
-///////////////
-
-message CrawlSessionResponse {
+message CrawlSessionData {
   string id = 1 [
-    (validate.rules).string.min_len = 1,
-    (validate.rules).string.max_len = 128
+    (validate.rules).string.uuid = true
   ];
 
   string app_version_id = 2 [
-    (validate.rules).string.min_len = 1,
-    (validate.rules).string.max_len = 128
+    (validate.rules).string.uuid = true
   ];
 
-  CrawlTriggerType trigger_type = 3 [
+  CrawlStatus status = 3;
+
+  CrawlTriggerType trigger_type = 4 [
     (validate.rules).enum.defined_only = true
   ];
 
-  CrawlStatus status = 4;
+  CrawlConfig crawl_config = 5;
 
-  int32 state_count = 5 [
+  int32 state_count = 6 [
     (validate.rules).int32.gte = 0
   ];
 
-  int32 transition_count = 6 [
+  int32 transition_count = 7 [
     (validate.rules).int32.gte = 0
   ];
 
-  string started_at = 7 [
+  string created_at = 8 [
     (validate.rules).string.max_len = 40
   ];
 
-  string finished_at = 8 [
+  optional string started_at = 9 [
     (validate.rules).string.max_len = 40
   ];
 
-  string error_message = 9 [
+  optional string finished_at = 10 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  optional string error_message = 11 [
     (validate.rules).string.max_len = 1024
   ];
 }
 
-message CrawlSessionListResponse {
-  repeated CrawlSessionResponse sessions = 1;
+
+// Request Messages
+message CreateCrawlSessionRequest {
+  CrawlTriggerType trigger_type = 1 [
+    (validate.rules).enum.defined_only = true
+  ];
+  CrawlConfig crawl_config = 2;
+}
+
+
+// Response Messages
+message ApplicationVersionCrawlSessionsResponse {
+  repeated CrawlSessionData sessions = 1;
 
   int32 total_count = 2 [
     (validate.rules).int32.gte = 0
@@ -130,4 +129,11 @@ message CrawlSessionListResponse {
     (validate.rules).int32.gte = 1,
     (validate.rules).int32.lte = 100
   ];
+}
+
+message CrawlSessionByIDResponse {
+  CrawlSessionData session = 1;
+}
+message StopCrawlSessionResponse {
+  CrawlSessionData session = 1;
 }
