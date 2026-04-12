@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.5.0...v1.6.0) (2026-04-12)
+
+
+### Features
+
+* restructure crawl session messages and update validation rules ([c470c2a](https://github.com/CoveritLabs/coverit-contracts/commit/c470c2a7b9804d8bb26ac6ad49cf94c74d9e3d7e))
+
 # [1.5.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.4.0...v1.5.0) (2026-04-11)
 
 
