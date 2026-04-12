@@ -7,14 +7,16 @@ import "validate/validate.proto";
 ///////////////
 // Enums
 ///////////////
-
+//TODO:  i think we should add new, and paused status.
 enum CrawlStatus {
   CRAWL_STATUS_UNSPECIFIED = 0;
-  CRAWL_STATUS_PENDING = 1;
+  CRAWL_STATUS_QUEUED = 1;
   CRAWL_STATUS_RUNNING = 2;
   CRAWL_STATUS_COMPLETED = 3;
   CRAWL_STATUS_FAILED = 4;
   CRAWL_STATUS_ABORTED = 5;
+  CRAWL_STATUS_PAUSED = 6;
+  CRAWL_STATUS_NEW = 7;
 }
 
 enum CrawlTriggerType {
