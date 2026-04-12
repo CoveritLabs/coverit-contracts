@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.6.0...v1.6.1) (2026-04-12)
+
+
+### Bug Fixes
+
+* update CrawlStatus enum to include QUEUED, PAUSED, and NEW states ([92132b5](https://github.com/CoveritLabs/coverit-contracts/commit/92132b537bbfb368f8bff2d305e12ade7a39289a))
+
 # [1.6.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.5.0...v1.6.0) (2026-04-12)
 
 
