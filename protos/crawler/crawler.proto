@@ -1,18 +1,21 @@
 syntax = "proto3";
 
-package coverit.crawler;
+package coverit.crawler.v1;
+
+import "validate/validate.proto";
 
 ///////////////
 // Enums
 ///////////////
-
 enum CrawlStatus {
   CRAWL_STATUS_UNSPECIFIED = 0;
-  CRAWL_STATUS_PENDING = 1;
+  CRAWL_STATUS_QUEUED = 1;
   CRAWL_STATUS_RUNNING = 2;
   CRAWL_STATUS_COMPLETED = 3;
   CRAWL_STATUS_FAILED = 4;
   CRAWL_STATUS_ABORTED = 5;
+  CRAWL_STATUS_PAUSED = 6;
+  CRAWL_STATUS_NEW = 7;
 }
 
 enum CrawlTriggerType {
@@ -27,52 +30,162 @@ enum CrawlTriggerType {
 // Messages
 ///////////////
 
+message CrawlerRunSettings {
+  optional bool headless = 1;
+
+  optional int32 timeout_ms = 2 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 86400000
+  ];
+
+  optional int32 max_states = 3 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 100000
+  ];
+
+  optional int32 max_transitions = 4 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 1000000
+  ];
+
+  optional int32 max_elements_per_state = 5 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 10000
+  ];
+
+  optional int32 max_select_options_per_element = 6 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 1000
+  ];
+
+  optional int32 max_action_repeats_per_url = 7 [
+    (validate.rules).int32.gte = 0,
+    (validate.rules).int32.lte = 1000
+  ];
+
+  optional int32 action_retry_count = 8 [
+    (validate.rules).int32.gte = 0,
+    (validate.rules).int32.lte = 100
+  ];
+
+  optional int32 replay_retry_count = 9 [
+    (validate.rules).int32.gte = 0,
+    (validate.rules).int32.lte = 100
+  ];
+
+  optional int32 popup_timeout_ms = 10 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 86400000
+  ];
+
+  optional int32 dom_quiet_ms = 11 [
+    (validate.rules).int32.gte = 0,
+    (validate.rules).int32.lte = 600000
+  ];
+
+  optional int32 dom_settle_timeout_ms = 12 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 86400000
+  ];
+
+  optional bool use_dom_quiescence = 13;
+
+  optional string page_load_state = 14 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 100
+  ];
+
+  optional bool click_non_http_links = 15;
+  optional bool defer_destructive_actions = 16;
+
+  optional string destructive_keywords = 17 [
+    (validate.rules).string.max_len = 5000
+  ];
+}
+
+message InputDefaultsConfig {
+  map<string, string> field_patterns = 1;
+  map<string, string> type_fallbacks = 2;
+}
+
 message CrawlConfig {
-  int32 max_states = 1;
-  int32 max_depth = 2;
-  repeated string include_url_patterns = 3;
-  repeated string exclude_url_patterns = 4;
-  bool enable_semantic_decisions = 5;
-  bool headless = 6;
-  int32 timeout_seconds = 7;
+  CrawlerRunSettings crawler_settings = 1;
+  InputDefaultsConfig input_defaults = 2;
 }
 
-message AbstractState {
-  string id = 1;
-  string state_hash = 2;
-  string screenshot_url = 3;
+message CrawlSessionData {
+  string id = 1 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string app_version_id = 2 [
+    (validate.rules).string.uuid = true
+  ];
+
+  CrawlStatus status = 3;
+
+  CrawlTriggerType trigger_type = 4 [
+    (validate.rules).enum.defined_only = true
+  ];
+
+  CrawlConfig crawl_config = 5;
+
+  int32 state_count = 6 [
+    (validate.rules).int32.gte = 0
+  ];
+
+  int32 transition_count = 7 [
+    (validate.rules).int32.gte = 0
+  ];
+
+  string created_at = 8 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  optional string started_at = 9 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  optional string finished_at = 10 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  optional string error_message = 11 [
+    (validate.rules).string.max_len = 1024
+  ];
 }
 
-message ActionLocator {
-  string id = 1;
-  string selector = 2;
-  string state_id = 3;
-}
 
-///////////////
-// Request/Response DTOs
-///////////////
-
+// Request Messages
 message CreateCrawlSessionRequest {
-  CrawlTriggerType trigger_type = 1;
+  CrawlTriggerType trigger_type = 1 [
+    (validate.rules).enum.defined_only = true
+  ];
   CrawlConfig crawl_config = 2;
 }
 
-message CrawlSessionResponse {
-  string id = 1;
-  string app_version_id = 2;
-  CrawlTriggerType trigger_type = 3;
-  CrawlStatus status = 4;
-  int32 state_count = 5;
-  int32 transition_count = 6;
-  string started_at = 7;
-  string finished_at = 8;
-  string error_message = 9;
+
+// Response Messages
+message ApplicationVersionCrawlSessionsResponse {
+  repeated CrawlSessionData sessions = 1;
+
+  int32 total_count = 2 [
+    (validate.rules).int32.gte = 0
+  ];
+
+  int32 current_page = 3 [
+    (validate.rules).int32.gte = 1
+  ];
+
+  int32 page_size = 4 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 100
+  ];
 }
 
-message CrawlSessionListResponse {
-  repeated CrawlSessionResponse sessions = 1;
-  int32 total_count = 2;
-  int32 current_page = 3;
-  int32 page_size = 4;
+message CrawlSessionByIDResponse {
+  CrawlSessionData session = 1;
+}
+message StopCrawlSessionResponse {
+  CrawlSessionData session = 1;
 }
