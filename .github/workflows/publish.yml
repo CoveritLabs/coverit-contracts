@@ -119,7 +119,7 @@ jobs:
           ls -1 gh-pages-dir/packages/ > /tmp/package-list.txt
           dumb-pypi \
             --package-list /tmp/package-list.txt \
-            --packages-url "../../packages" \
+            --packages-url "../packages" \
             --output-dir gh-pages-dir/simple
 
           # Push
