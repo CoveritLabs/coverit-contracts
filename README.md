@@ -35,14 +35,39 @@ npm install @coveritlabs/contracts
 import { AuthRequest, AuthResponse } from '@coveritlabs/contracts'
 ```
 
-## Python (GitHub Packages)
+## Python
 
-**Install:**
+Wheels are published to the GitHub Pages PyPI index on every release.
+
+### pip
+
 ```bash
-pip install --extra-index-url https://pypi.pkg.github.com/CoveritLabs coverit-contracts
+pip install coverit-contracts \
+  --extra-index-url https://coveritlabs.github.io/coverit-contracts/simple/
 ```
 
-**Import types (alias package):**
+### uv
+
+Add to your `pyproject.toml`:
+
+```toml
+[project]
+dependencies = [
+  "coverit-contracts",
+]
+
+[tool.uv]
+extra-index-url = ["https://coveritlabs.github.io/coverit-contracts/simple/"]
+```
+
+Then:
+
+```bash
+uv sync
+```
+
+### Import types
+
 ```python
 from contracts.crawler.v1 import crawler_pb2
 from contracts.common.v1 import types_pb2
@@ -97,7 +122,7 @@ npm link @coveritlabs/contracts
 - PR: contracts `feat/new-feature` → `develop`
 - PR: api/frontend `feat/new-feature` → `develop`
 - When ready for production:
-  - PR: contracts `develop` → `main` (triggers publish to GitHub Packages)
+  - PR: contracts `develop` → `main` (triggers publish to GitHub Packages + PyPI index)
   - PR: api/frontend `develop` → `main` (bump contracts version if needed)
 
 ## Publishing
@@ -105,13 +130,15 @@ npm link @coveritlabs/contracts
 Publishing is fully automated. When a PR is merged to `main`, the GitHub Action:
 1. Runs `buf generate` (proto → TypeScript)
 2. Runs `tsc` (TypeScript → JavaScript + declarations)
-3. Publishes `dist/` to GitHub Packages
+3. Publishes `dist/` to GitHub Packages (npm)
+4. Builds a Python wheel and publishes it to the GitHub Pages PyPI index
+5. Attaches the wheel and sdist as assets on the GitHub Release
 
 To publish a new version, bump `version` in `package.json` before merging to `main`.
 
 ## Branch Strategy
 
-- `main` = Production contracts (published to GitHub Packages)
+- `main` = Production contracts (published to GitHub Packages + PyPI index)
 - `develop` = Staging contracts (tested)
 - `feat/*` = New contracts under development
 
