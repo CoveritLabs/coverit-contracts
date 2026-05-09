@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.6.3...v1.7.0) (2026-05-09)
+
+
+### Features
+
+* remove broken twine upload ([ddd125f](https://github.com/CoveritLabs/coverit-contracts/commit/ddd125fac5413b924bdcb8deac976af4a2632b30))
+
 ## [1.6.3](https://github.com/CoveritLabs/coverit-contracts/compare/v1.6.2...v1.6.3) (2026-05-09)
 
 
