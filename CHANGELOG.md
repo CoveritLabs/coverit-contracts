@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.7.0...v1.7.1) (2026-05-09)
+
+
+### Bug Fixes
+
+* resolve package url duplication ([633bd8d](https://github.com/CoveritLabs/coverit-contracts/commit/633bd8d6ad8281e09eb13811a6e93054a0ed1d64))
+
 # [1.7.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.6.3...v1.7.0) (2026-05-09)
 
 
