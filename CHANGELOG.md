@@ -1,3 +1,10 @@
+## [1.6.3](https://github.com/CoveritLabs/coverit-contracts/compare/v1.6.2...v1.6.3) (2026-05-09)
+
+
+### Bug Fixes
+
+* revert endpoint change ([a668f19](https://github.com/CoveritLabs/coverit-contracts/commit/a668f19a2f3693d0b8e40e286d460f60bce0e720))
+
 ## [1.6.2](https://github.com/CoveritLabs/coverit-contracts/compare/v1.6.1...v1.6.2) (2026-05-09)
 
 
