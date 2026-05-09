@@ -99,6 +99,39 @@ jobs:
           TAG=$(git describe --tags --abbrev=0)
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
+      - name: Publish Python package to GitHub Pages PyPI index
+        if: github.ref == 'refs/heads/main'
+        run: |
+          pip install dumb-pypi
+
+          # Clone gh-pages branch, or create it fresh if it doesn't exist yet
+          git clone --branch gh-pages --single-branch \
+            https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git \
+            gh-pages-dir || \
+            (mkdir gh-pages-dir && cd gh-pages-dir && git init && \
+             git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git)
+
+          # Copy new packages in
+          mkdir -p gh-pages-dir/packages
+          cp dist-py/* gh-pages-dir/packages/
+
+          # Regenerate the index (ls -1 gives filenames; dumb-pypi needs just names, not paths)
+          ls -1 gh-pages-dir/packages/ > /tmp/package-list.txt
+          dumb-pypi \
+            --package-list /tmp/package-list.txt \
+            --packages-url "../../packages" \
+            --output-dir gh-pages-dir/simple
+
+          # Push
+          cd gh-pages-dir
+          git config user.email "ci@coveritlabs.com"
+          git config user.name "CI"
+          git add -A
+          git commit -m "chore: publish python ${{ steps.get_tag.outputs.tag }}" || echo "Nothing to commit"
+          git push origin HEAD:gh-pages --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload Python wheel to GitHub Release
         if: github.ref == 'refs/heads/main'
         run: |
