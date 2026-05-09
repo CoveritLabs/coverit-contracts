@@ -115,11 +115,10 @@ jobs:
           mkdir -p gh-pages-dir/packages
           cp dist-py/* gh-pages-dir/packages/
 
-          # Regenerate the index (ls -1 gives filenames; dumb-pypi needs just names, not paths)
           ls -1 gh-pages-dir/packages/ > /tmp/package-list.txt
           dumb-pypi \
             --package-list /tmp/package-list.txt \
-            --packages-url "../packages" \
+            --packages-url "https://coveritlabs.github.io/coverit-contracts/packages" \
             --output-dir gh-pages-dir/simple
 
           # Push
