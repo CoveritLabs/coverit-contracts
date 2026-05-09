@@ -102,9 +102,6 @@ jobs:
       - name: Publish Python package to GitHub Pages PyPI index
         if: github.ref == 'refs/heads/main'
         run: |
-          pip install dumb-pypi
-
-          # Clone gh-pages branch, or create it fresh if it doesn't exist yet
           git clone --branch gh-pages --single-branch \
             https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git \
             gh-pages-dir || \
@@ -115,11 +112,49 @@ jobs:
           mkdir -p gh-pages-dir/packages
           cp dist-py/* gh-pages-dir/packages/
 
-          ls -1 gh-pages-dir/packages/ > /tmp/package-list.txt
-          dumb-pypi \
-            --package-list /tmp/package-list.txt \
-            --packages-url "https://coveritlabs.github.io/coverit-contracts/packages" \
-            --output-dir gh-pages-dir/simple
+          # Generate a PEP 503 compliant simple index
+          python - <<'PY'
+          from pathlib import Path
+
+          base_url = "https://coveritlabs.github.io/coverit-contracts/packages"
+          packages_dir = Path("gh-pages-dir/packages")
+          simple_dir = Path("gh-pages-dir/simple")
+
+          # Top-level index
+          pkg_names = set()
+          for f in packages_dir.iterdir():
+              if f.suffix in (".whl", ".gz"):
+                  # normalized name: coverit_contracts -> coverit-contracts
+                  name = f.name.split("-")[0].replace("_", "-").lower()
+                  pkg_names.add(name)
+
+          simple_dir.mkdir(parents=True, exist_ok=True)
+          links = "\n".join(f'    <a href="{n}/">{n}</a>' for n in sorted(pkg_names))
+          (simple_dir / "index.html").write_text(f"""<!DOCTYPE html>
+          <html><head><title>Simple index</title></head>
+          <body>
+          {links}
+          </body></html>
+          """)
+
+          # Per-package index
+          for name in pkg_names:
+              pkg_dir = simple_dir / name
+              pkg_dir.mkdir(parents=True, exist_ok=True)
+              files = sorted(f for f in packages_dir.iterdir()
+                             if f.name.lower().startswith(name.replace("-", "_")))
+              links = "\n".join(
+                  f'    <a href="{base_url}/{f.name}">{f.name}</a>' for f in files
+              )
+              (pkg_dir / "index.html").write_text(f"""<!DOCTYPE html>
+          <html><head><title>Links for {name}</title></head>
+          <body>
+          <h1>Links for {name}</h1>
+          {links}
+          </body></html>
+          """)
+              print(f"Generated index for {name} with {len(files)} file(s)")
+          PY
 
           # Push
           cd gh-pages-dir
