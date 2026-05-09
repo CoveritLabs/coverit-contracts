@@ -93,8 +93,15 @@ jobs:
       - name: Build Python package
         run: python -m build --outdir dist-py
 
-      - name: Publish Python package to GitHub Packages
-        run: python -m twine upload --repository-url https://upload.pypi.pkg.github.com/CoveritLabs/ dist-py/*
+      - name: Get latest release tag
+        id: get_tag
+        run: |
+          TAG=$(git describe --tags --abbrev=0)
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Upload Python wheel to GitHub Release
+        if: github.ref == 'refs/heads/main'
+        run: |
+          gh release upload ${{ steps.get_tag.outputs.tag }} dist-py/*.whl dist-py/*.tar.gz --clobber
         env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.GH_PACKAGES_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
