@@ -35,6 +35,19 @@ npm install @coveritlabs/contracts
 import { AuthRequest, AuthResponse } from '@coveritlabs/contracts'
 ```
 
+## Python (GitHub Packages)
+
+**Install:**
+```bash
+pip install --extra-index-url https://pypi.pkg.github.com/CoveritLabs coverit-contracts
+```
+
+**Import types (alias package):**
+```python
+from contracts.crawler.v1 import crawler_pb2
+from contracts.common.v1 import types_pb2
+```
+
 ## Local Development
 
 **Link for live editing:**

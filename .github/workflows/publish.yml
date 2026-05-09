@@ -35,3 +35,66 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python build tools
+        run: python -m pip install --upgrade pip build twine
+
+      - name: Sync Python package version
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          version = json.loads(Path('package.json').read_text())['version']
+          version_path = Path('python/coverit_contracts/_version.py')
+          version_path.parent.mkdir(parents=True, exist_ok=True)
+          version_path.write_text(f"__version__ = \"{version}\"\n")
+          print(f"Set python version to {version}")
+          PY
+
+      - name: Generate Python alias package
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          alias_root = Path("python/contracts")
+          source_root = Path("python/coverit")
+
+          def write_init(path: Path, text: str) -> None:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(text)
+
+          write_init(
+            alias_root / "__init__.py",
+            "\"\"\"Alias package for protobuf-generated modules.\"\"\"\nfrom coverit_contracts._version import __version__\n",
+          )
+
+          init_text = "\"\"\"protobuf alias package.\"\"\"\n"
+
+          if source_root.exists():
+            for source in source_root.rglob("*_pb2.py"):
+              relative = source.relative_to(source_root)
+              destination = alias_root / relative
+
+              for parent in destination.parents:
+                if parent == alias_root.parent:
+                  break
+                write_init(parent / "__init__.py", init_text)
+
+              module_name = "coverit." + ".".join(relative.with_suffix("").parts)
+              destination.parent.mkdir(parents=True, exist_ok=True)
+              destination.write_text(f"from {module_name} import *\n")
+          PY
+
+      - name: Build Python package
+        run: python -m build --outdir dist-py
+
+      - name: Publish Python package to GitHub Packages
+        run: python -m twine upload --repository-url https://upload.pypi.pkg.github.com/CoveritLabs/ dist-py/*
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.GITHUB_TOKEN }}

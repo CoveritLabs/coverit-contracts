@@ -4,3 +4,7 @@ plugins:
     out: gen/ts
     opt:
       - target=ts
+  - remote: buf.build/protocolbuffers/python
+    out: python
+  - remote: buf.build/protocolbuffers/pyi
+    out: python

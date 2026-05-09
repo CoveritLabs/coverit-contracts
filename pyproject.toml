@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coverit-contracts"
+dynamic = ["version"]
+description = "CoverIt shared API contracts — Protocol Buffer definitions and generated Python types"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["protobuf>=4.25.0"]
+
+[tool.setuptools]
+include-package-data = true
+package-dir = {"" = "python"}
+
+[tool.setuptools.dynamic]
+version = { attr = "coverit_contracts._version.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["python"]
+include = ["coverit*", "coverit_contracts*", "contracts*"]
+namespaces = true
