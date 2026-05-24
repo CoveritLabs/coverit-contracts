@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/CoveritLabs/coverit-contracts/compare/v1.7.1...v1.7.2) (2026-05-24)
+
+
+### Bug Fixes
+
+* add missing contracts for crawler settings ([a0d24db](https://github.com/CoveritLabs/coverit-contracts/commit/a0d24db351f3c3fb260ad5c86241db7f861c27b5))
+
 ## [1.7.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.7.0...v1.7.1) (2026-05-09)
 
 
