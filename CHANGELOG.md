@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.7.2...v1.8.0) (2026-05-28)
+
+
+### Features
+
+* update crawl DTOs ([ed7957c](https://github.com/CoveritLabs/coverit-contracts/commit/ed7957c00a6f2b79204369ceef440b31090408dc))
+
 ## [1.7.2](https://github.com/CoveritLabs/coverit-contracts/compare/v1.7.1...v1.7.2) (2026-05-24)
 
 
