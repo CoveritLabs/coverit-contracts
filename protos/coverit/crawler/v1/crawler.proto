@@ -27,6 +27,18 @@ enum CrawlTriggerType {
   CRAWL_TRIGGER_TYPE_WEBHOOK = 4;
 }
 
+enum CrawlScheduleType {
+  CRAWL_SCHEDULE_TYPE_UNSPECIFIED = 0;
+  CRAWL_SCHEDULE_TYPE_ONCE = 1;
+  CRAWL_SCHEDULE_TYPE_CRON = 2;
+}
+
+enum CrawlScheduleMode {
+  CRAWL_SCHEDULE_MODE_UNSPECIFIED = 0;
+  CRAWL_SCHEDULE_MODE_LATEST_VERSION = 1;
+  CRAWL_SCHEDULE_MODE_FIXED_VERSION = 2;
+}
+
 ///////////////
 // Messages
 ///////////////
@@ -122,6 +134,24 @@ message CrawlConfig {
   InputDefaultsConfig input_defaults = 8;
 }
 
+message CodegenConfig {
+  string codegen_branch = 1 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 200
+  ];
+  string pr_target_branch = 2 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 200
+  ];
+  optional string pr_title = 3 [
+    (validate.rules).string.max_len = 200
+  ];
+  optional string pr_body = 4 [
+    (validate.rules).string.max_len = 5000
+  ];
+  optional bool pr_draft = 5;
+}
+
 message CrawlSessionData {
   string id = 1 [
     (validate.rules).string.uuid = true
@@ -134,22 +164,32 @@ message CrawlSessionData {
     (validate.rules).enum.defined_only = true
   ];
   CrawlConfig crawl_config = 5;
-  int32 state_count = 6 [
+  optional string regression_codebase_id = 6 [
+    (validate.rules).string.uuid = true
+  ];
+  optional CodegenConfig codegen_config = 7;
+  optional string base_url_snapshot = 8 [
+    (validate.rules).string.max_len = 2048
+  ];
+  optional string schedule_id = 9 [
+    (validate.rules).string.uuid = true
+  ];
+  int32 state_count = 10 [
     (validate.rules).int32.gte = 0
   ];
-  int32 transition_count = 7 [
+  int32 transition_count = 11 [
     (validate.rules).int32.gte = 0
   ];
-  string created_at = 8 [
+  string created_at = 12 [
     (validate.rules).string.max_len = 40
   ];
-  optional string started_at = 9 [
+  optional string started_at = 13 [
     (validate.rules).string.max_len = 40
   ];
-  optional string finished_at = 10 [
+  optional string finished_at = 14 [
     (validate.rules).string.max_len = 40
   ];
-  optional string error_message = 11 [
+  optional string error_message = 15 [
     (validate.rules).string.max_len = 1024
   ];
 }
@@ -159,6 +199,112 @@ message CreateCrawlSessionRequest {
     (validate.rules).enum.defined_only = true
   ];
   CrawlConfig crawl_config = 2;
+  optional string regression_codebase_id = 3 [
+    (validate.rules).string.uuid = true
+  ];
+  optional CodegenConfig codegen_config = 4;
+}
+
+message CreateCrawlScheduleRequest {
+  CrawlScheduleType schedule_type = 1 [
+    (validate.rules).enum.defined_only = true
+  ];
+  CrawlScheduleMode mode = 2 [
+    (validate.rules).enum.defined_only = true
+  ];
+  optional string version_id = 3 [
+    (validate.rules).string.uuid = true
+  ];
+  optional string cron = 4 [
+    (validate.rules).string.max_len = 200
+  ];
+  optional string timezone = 5 [
+    (validate.rules).string.max_len = 100
+  ];
+  optional string run_at = 6 [
+    (validate.rules).string.max_len = 40
+  ];
+  optional bool is_active = 7;
+  optional bool catch_up = 8;
+  CrawlConfig crawl_config = 9;
+  optional CodegenConfig codegen_config = 10;
+  optional string regression_codebase_id = 11 [
+    (validate.rules).string.uuid = true
+  ];
+}
+
+message UpdateCrawlScheduleRequest {
+  optional CrawlScheduleType schedule_type = 1 [
+    (validate.rules).enum.defined_only = true
+  ];
+  optional CrawlScheduleMode mode = 2 [
+    (validate.rules).enum.defined_only = true
+  ];
+  optional string version_id = 3 [
+    (validate.rules).string.uuid = true
+  ];
+  optional string cron = 4 [
+    (validate.rules).string.max_len = 200
+  ];
+  optional string timezone = 5 [
+    (validate.rules).string.max_len = 100
+  ];
+  optional string run_at = 6 [
+    (validate.rules).string.max_len = 40
+  ];
+  optional bool is_active = 7;
+  optional bool catch_up = 8;
+  optional CrawlConfig crawl_config = 9;
+  optional CodegenConfig codegen_config = 10;
+  optional string regression_codebase_id = 11 [
+    (validate.rules).string.uuid = true
+  ];
+}
+
+message CrawlScheduleData {
+  string id = 1 [
+    (validate.rules).string.uuid = true
+  ];
+  string target_application_id = 2 [
+    (validate.rules).string.uuid = true
+  ];
+  CrawlScheduleType schedule_type = 3;
+  CrawlScheduleMode mode = 4;
+  optional string version_id = 5 [
+    (validate.rules).string.uuid = true
+  ];
+  optional string cron = 6 [
+    (validate.rules).string.max_len = 200
+  ];
+  optional string timezone = 7 [
+    (validate.rules).string.max_len = 100
+  ];
+  optional string run_at = 8 [
+    (validate.rules).string.max_len = 40
+  ];
+  bool is_active = 9;
+  bool catch_up = 10;
+  CrawlConfig crawl_config = 11;
+  optional CodegenConfig codegen_config = 12;
+  optional string regression_codebase_id = 13 [
+    (validate.rules).string.uuid = true
+  ];
+  optional string next_run_at = 14 [
+    (validate.rules).string.max_len = 40
+  ];
+  optional string last_run_at = 15 [
+    (validate.rules).string.max_len = 40
+  ];
+  string created_at = 16 [
+    (validate.rules).string.max_len = 40
+  ];
+  string updated_at = 17 [
+    (validate.rules).string.max_len = 40
+  ];
+}
+
+message CrawlScheduleListResponse {
+  repeated CrawlScheduleData schedules = 1;
 }
 
 message ApplicationVersionCrawlSessionsResponse {

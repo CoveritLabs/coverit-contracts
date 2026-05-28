@@ -1,6 +1,7 @@
 node_modules/
 gen/
 dist/
+python/
 python/contracts/
 python/contracts/**
 dist-py/
