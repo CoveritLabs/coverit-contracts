@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.8.0...v1.9.0) (2026-06-14)
+
+
+### Features
+
+* add regression runs protos ([ba4eb04](https://github.com/CoveritLabs/coverit-contracts/commit/ba4eb04e775eedb3d3e495bd1f0cd5d07428c7cb))
+
 # [1.8.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.7.2...v1.8.0) (2026-05-28)
 
 
