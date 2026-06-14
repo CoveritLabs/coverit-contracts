@@ -77,6 +77,8 @@ message UpdateRegressionCodebaseRequest {
 
 message CreateTargetApplicationResponse {
   string id = 1;
+  optional string api_key = 2;
+  optional string api_key_preview = 3;
 }
 
 message TargetApplicationResponse {
@@ -84,6 +86,9 @@ message TargetApplicationResponse {
   string name = 2;
   string base_url = 3;
   repeated TargetApplicationVersionResponse versions = 4;
+  optional string api_key_preview = 5;
+  optional string api_key_created_at = 6;
+  optional string api_key_rotated_at = 7;
 }
 
 message TargetApplicationVersionResponse {
@@ -95,4 +100,9 @@ message RegressionCodebaseResponse {
   string id = 1;
   string framework_name = 2;
   string repository_url = 3;
+}
+
+message RotateTargetApplicationApiKeyResponse {
+  string api_key = 1;
+  string api_key_preview = 2;
 }

@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+package coverit.regression.v1;
+
+import "google/protobuf/struct.proto";
+import "validate/validate.proto";
+
+enum RegressionRunStatus {
+  REGRESSION_RUN_STATUS_UNSPECIFIED = 0;
+  REGRESSION_RUN_STATUS_RUNNING = 1;
+  REGRESSION_RUN_STATUS_PASSED = 2;
+  REGRESSION_RUN_STATUS_FAILED = 3;
+}
+
+enum RegressionScenarioStatus {
+  REGRESSION_SCENARIO_STATUS_UNSPECIFIED = 0;
+  REGRESSION_SCENARIO_STATUS_RUNNING = 1;
+  REGRESSION_SCENARIO_STATUS_PASSED = 2;
+  REGRESSION_SCENARIO_STATUS_FAILED = 3;
+}
+
+enum RegressionArtifactKind {
+  REGRESSION_ARTIFACT_KIND_UNSPECIFIED = 0;
+  REGRESSION_ARTIFACT_KIND_FAILURE = 1;
+  REGRESSION_ARTIFACT_KIND_LOG = 2;
+  REGRESSION_ARTIFACT_KIND_HEALING = 3;
+  REGRESSION_ARTIFACT_KIND_SUMMARY = 4;
+  REGRESSION_ARTIFACT_KIND_OTHER = 5;
+}
+
+message RegressionHealingInfo {
+  bool was_healed = 1;
+  string original_selector = 2;
+  optional string healed_selector = 3;
+  optional double score = 4;
+  optional string reason = 5;
+  map<string, double> breakdown = 6;
+}
+
+message RegressionAssertionResult {
+  string name = 1;
+  bool passed = 2;
+  string severity = 3;
+  string message = 4;
+  optional string details = 5;
+  optional RegressionHealingInfo healing_info = 6;
+}
+
+message RegressionStepReport {
+  string step_type = 1;
+  string id = 2;
+  string label = 3;
+  repeated RegressionAssertionResult results = 4;
+  bool all_passed = 5;
+}
+
+message RegressionRunSummary {
+  RegressionRunStatus status = 1;
+  optional string started_at = 2;
+  optional string finished_at = 3;
+  optional int32 duration_ms = 4;
+  int32 passed = 5;
+  int32 failed = 6;
+  int32 warnings = 7;
+  repeated RegressionStepReport reports = 8;
+}
+
+message RegressionRun {
+  string id = 1;
+  string run_id = 2;
+  string application_id = 3;
+  optional string version_id = 4;
+  RegressionRunStatus status = 5;
+  optional string started_at = 6;
+  optional string finished_at = 7;
+  optional int32 duration_ms = 8;
+  int32 passed_count = 9;
+  int32 failed_count = 10;
+  int32 warning_count = 11;
+  string created_at = 12;
+  string updated_at = 13;
+}
+
+message RegressionScenario {
+  string id = 1;
+  string run_id = 2;
+  string scenario_key = 3;
+  optional string feature_name = 4;
+  optional string scenario_name = 5;
+  optional string title = 6;
+  optional string file = 7;
+  optional int32 line = 8;
+  RegressionScenarioStatus status = 9;
+  optional string started_at = 10;
+  optional string finished_at = 11;
+  optional int32 duration_ms = 12;
+  int32 passed_count = 13;
+  int32 failed_count = 14;
+  int32 warning_count = 15;
+}
+
+message RegressionEvent {
+  string id = 1;
+  string run_id = 2;
+  optional string scenario_id = 3;
+  string type = 4;
+  string timestamp = 5;
+  optional string feature_name = 6;
+  optional string scenario_name = 7;
+  optional string step_id = 8;
+  optional string step_label = 9;
+  optional string step_type = 10;
+  optional string status = 11;
+  optional string log_level = 12;
+  bool has_failure = 13;
+  bool has_healing = 14;
+  google.protobuf.Value payload = 15;
+}
+
+message RegressionArtifact {
+  string id = 1;
+  string run_id = 2;
+  optional string scenario_id = 3;
+  RegressionArtifactKind kind = 4;
+  string name = 5;
+  google.protobuf.Value data = 6;
+  string created_at = 7;
+}
+
+message ListRegressionRunsRequest {
+  string application_id = 1 [(validate.rules).string.uuid = true];
+  optional string version_id = 2 [(validate.rules).string.uuid = true];
+  optional RegressionRunStatus status = 3;
+  optional int32 limit = 4 [(validate.rules).int32.lte = 100];
+  optional string cursor = 5;
+}
+
+message ListRegressionRunsResponse {
+  repeated RegressionRun runs = 1;
+  optional string next_cursor = 2;
+}
+
+message RegressionRunResponse {
+  RegressionRun run = 1;
+}
+
+message ListRegressionScenariosResponse {
+  repeated RegressionScenario scenarios = 1;
+}
+
+message RegressionScenarioResponse {
+  RegressionScenario scenario = 1;
+}
+
+message ListRegressionEventsResponse {
+  repeated RegressionEvent events = 1;
+  optional string next_cursor = 2;
+}
+
+message ListRegressionArtifactsResponse {
+  repeated RegressionArtifact artifacts = 1;
+}
