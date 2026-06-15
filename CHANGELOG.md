@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.9.0...v1.10.0) (2026-06-15)
+
+
+### Features
+
+* extend artifacts to include dagshub stored artifacts ([4ae5ef2](https://github.com/CoveritLabs/coverit-contracts/commit/4ae5ef240951ef678d15cbd7ba5b36569a5e4a57))
+
 # [1.9.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.8.0...v1.9.0) (2026-06-14)
 
 
