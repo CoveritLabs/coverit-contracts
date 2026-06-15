@@ -26,6 +26,16 @@ enum RegressionArtifactKind {
   REGRESSION_ARTIFACT_KIND_HEALING = 3;
   REGRESSION_ARTIFACT_KIND_SUMMARY = 4;
   REGRESSION_ARTIFACT_KIND_OTHER = 5;
+  REGRESSION_ARTIFACT_KIND_SCREENSHOT = 6;
+  REGRESSION_ARTIFACT_KIND_VIDEO = 7;
+  REGRESSION_ARTIFACT_KIND_TRACE = 8;
+  REGRESSION_ARTIFACT_KIND_EVENTS = 9;
+}
+
+enum RegressionArtifactUploadStatus {
+  REGRESSION_ARTIFACT_UPLOAD_STATUS_UNSPECIFIED = 0;
+  REGRESSION_ARTIFACT_UPLOAD_STATUS_UPLOADED = 1;
+  REGRESSION_ARTIFACT_UPLOAD_STATUS_FAILED = 2;
 }
 
 message RegressionHealingInfo {
@@ -125,6 +135,30 @@ message RegressionArtifact {
   string name = 5;
   google.protobuf.Value data = 6;
   string created_at = 7;
+  optional string content_type = 8;
+  optional int64 size_bytes = 9;
+  optional string storage_provider = 10;
+  optional string storage_uri = 11;
+  optional string storage_path = 12;
+  optional string checksum_sha256 = 13;
+  RegressionArtifactUploadStatus upload_status = 14;
+  optional string upload_error = 15;
+  google.protobuf.Value metadata = 16;
+  optional string download_url = 17;
+  optional string updated_at = 18;
+}
+
+message RegressionArtifactUploadResponse {
+  RegressionArtifact artifact = 1;
+}
+
+message RegressionArtifactResponse {
+  RegressionArtifact artifact = 1;
+}
+
+message RegressionArtifactDownloadResponse {
+  string download_url = 1;
+  optional string expires_at = 2;
 }
 
 message ListRegressionRunsRequest {
