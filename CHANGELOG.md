@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.11.0...v1.12.0) (2026-06-17)
+
+
+### Features
+
+* add message response to artifact upload request ([7cf53df](https://github.com/CoveritLabs/coverit-contracts/commit/7cf53df0d378e67fe6db37b5a575208228fd9bd9))
+
 # [1.11.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.10.0...v1.11.0) (2026-06-17)
 
 
