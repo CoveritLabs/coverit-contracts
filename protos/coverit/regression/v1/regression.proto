@@ -38,6 +38,12 @@ enum RegressionArtifactUploadStatus {
   REGRESSION_ARTIFACT_UPLOAD_STATUS_FAILED = 2;
 }
 
+enum RegressionArtifactTreeNodeType {
+  REGRESSION_ARTIFACT_TREE_NODE_TYPE_UNSPECIFIED = 0;
+  REGRESSION_ARTIFACT_TREE_NODE_TYPE_FOLDER = 1;
+  REGRESSION_ARTIFACT_TREE_NODE_TYPE_FILE = 2;
+}
+
 message RegressionHealingInfo {
   bool was_healed = 1;
   string original_selector = 2;
@@ -148,6 +154,17 @@ message RegressionArtifact {
   optional string updated_at = 18;
 }
 
+message RegressionArtifactTreeNode {
+  string id = 1;
+  string name = 2;
+  string path = 3;
+  RegressionArtifactTreeNodeType type = 4;
+  optional RegressionArtifact artifact = 5;
+  repeated RegressionArtifactTreeNode children = 6;
+  int32 artifact_count = 7;
+  optional int64 size_bytes = 8;
+}
+
 message RegressionArtifactUploadResponse {
   RegressionArtifact artifact = 1;
 }
@@ -193,4 +210,5 @@ message ListRegressionEventsResponse {
 
 message ListRegressionArtifactsResponse {
   repeated RegressionArtifact artifacts = 1;
+  repeated RegressionArtifactTreeNode artifact_tree = 2;
 }
