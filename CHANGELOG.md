@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.12.0...v1.13.0) (2026-06-17)
+
+
+### Features
+
+* add run name ([9fb6382](https://github.com/CoveritLabs/coverit-contracts/commit/9fb63820e3d56c4b0c479a38688415358e714b03))
+
 # [1.12.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.11.0...v1.12.0) (2026-06-17)
 
 
