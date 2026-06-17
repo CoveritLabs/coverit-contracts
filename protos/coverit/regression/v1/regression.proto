@@ -167,6 +167,7 @@ message RegressionArtifactTreeNode {
 
 message RegressionArtifactUploadResponse {
   RegressionArtifact artifact = 1;
+  string message = 2;
 }
 
 message RegressionArtifactResponse {
