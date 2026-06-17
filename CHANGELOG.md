@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.10.0...v1.11.0) (2026-06-17)
+
+
+### Features
+
+* add regression artifacts tree node ([6e577f0](https://github.com/CoveritLabs/coverit-contracts/commit/6e577f054b717e8235fb825466d23a0ef47cdf2a))
+
 # [1.10.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.9.0...v1.10.0) (2026-06-15)
 
 
