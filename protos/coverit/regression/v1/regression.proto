@@ -71,7 +71,7 @@ message RegressionStepReport {
 }
 
 message RegressionRunSummary {
-  RegressionRunStatus status = 1;
+  string status = 1;
   optional string started_at = 2;
   optional string finished_at = 3;
   optional int32 duration_ms = 4;
@@ -86,7 +86,7 @@ message RegressionRun {
   string run_id = 2;
   string application_id = 3;
   optional string version_id = 4;
-  RegressionRunStatus status = 5;
+  string status = 5;
   optional string started_at = 6;
   optional string finished_at = 7;
   optional int32 duration_ms = 8;
@@ -109,7 +109,7 @@ message RegressionScenario {
   optional string title = 6;
   optional string file = 7;
   optional int32 line = 8;
-  RegressionScenarioStatus status = 9;
+  string status = 9;
   optional string started_at = 10;
   optional string finished_at = 11;
   optional int32 duration_ms = 12;
@@ -141,7 +141,7 @@ message RegressionArtifact {
   string id = 1;
   string run_id = 2;
   optional string scenario_id = 3;
-  RegressionArtifactKind kind = 4;
+  string kind = 4;
   string name = 5;
   google.protobuf.Value data = 6;
   string created_at = 7;
@@ -151,7 +151,7 @@ message RegressionArtifact {
   optional string storage_uri = 11;
   optional string storage_path = 12;
   optional string checksum_sha256 = 13;
-  RegressionArtifactUploadStatus upload_status = 14;
+  string upload_status = 14;
   optional string upload_error = 15;
   google.protobuf.Value metadata = 16;
   optional string download_url = 17;
@@ -162,7 +162,7 @@ message RegressionArtifactTreeNode {
   string id = 1;
   string name = 2;
   string path = 3;
-  RegressionArtifactTreeNodeType type = 4;
+  string type = 4;
   optional RegressionArtifact artifact = 5;
   repeated RegressionArtifactTreeNode children = 6;
   int32 artifact_count = 7;
@@ -184,11 +184,10 @@ message RegressionArtifactDownloadResponse {
 }
 
 message ListRegressionRunsRequest {
-  string application_id = 1 [(validate.rules).string.uuid = true];
-  optional string version_id = 2 [(validate.rules).string.uuid = true];
-  optional RegressionRunStatus status = 3;
-  optional int32 limit = 4 [(validate.rules).int32.lte = 100];
-  optional string cursor = 5;
+  optional string version_id = 1 [(validate.rules).string.uuid = true];
+  optional string status = 2;
+  optional int32 limit = 3 [(validate.rules).int32.lte = 100];
+  optional string cursor = 4;
 }
 
 message ListRegressionRunsResponse {
@@ -208,9 +207,21 @@ message RegressionScenarioResponse {
   RegressionScenario scenario = 1;
 }
 
+message ListRegressionEventsRequest {
+  optional string type = 1;
+  optional int32 limit = 2 [(validate.rules).int32.lte = 100];
+  optional string cursor = 3;
+}
+
 message ListRegressionEventsResponse {
   repeated RegressionEvent events = 1;
   optional string next_cursor = 2;
+}
+
+message ListRegressionArtifactsRequest {
+  optional string kind = 1;
+  optional string scenario_id = 2 [(validate.rules).string.uuid = true];
+  optional string upload_status = 3;
 }
 
 message ListRegressionArtifactsResponse {
