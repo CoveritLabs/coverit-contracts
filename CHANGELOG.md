@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.13.0...v1.13.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* remove int enums replaced later with strings ([05541d6](https://github.com/CoveritLabs/coverit-contracts/commit/05541d693b4b10e3a733f951ba15f147163ecf5b))
+
 # [1.13.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.12.0...v1.13.0) (2026-06-17)
 
 
