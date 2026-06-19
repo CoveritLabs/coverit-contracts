@@ -1,3 +1,11 @@
+## [1.15.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.15.0...v1.15.1) (2026-06-19)
+
+
+### Bug Fixes
+
+* remove redundant request and enrich payload data ([7228db1](https://github.com/CoveritLabs/coverit-contracts/commit/7228db19e8004853bb6521c70da0dd912bcdcecb))
+* resolve typo ([8dae800](https://github.com/CoveritLabs/coverit-contracts/commit/8dae800234571ee380047330fb27b8e7e0485016))
+
 # [1.15.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.14.0...v1.15.0) (2026-06-19)
 
 
