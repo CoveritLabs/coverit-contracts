@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.15.1...v1.16.0) (2026-06-19)
+
+
+### Features
+
+* add jira configs and scenario reports ([0476420](https://github.com/CoveritLabs/coverit-contracts/commit/04764205496db602d3bad6fb0421955ca8dfcb3f))
+
 ## [1.15.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.15.0...v1.15.1) (2026-06-19)
 
 
