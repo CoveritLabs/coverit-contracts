@@ -3,17 +3,7 @@ syntax = "proto3";
 package coverit.integration.v1;
 
 import "validate/validate.proto";
-
-///////////////
-// Request DTOs
-///////////////
-
-message StartIntegrationOAuthRequest {
-  optional string site_url = 1 [
-    (validate.rules).string.uri = true,
-    (validate.rules).string.max_len = 200
-  ];
-}
+import "coverit/common/v1/types.proto";
 
 ////////////////
 // Response DTOs
@@ -27,7 +17,7 @@ message IntegrationStatusResponse {
   bool connected = 1;
   string provider = 2;
   repeated string scopes = 3;
-  optional string authorized_by_user_id = 4;
+  optional UserInfo authorized_by_user = 4;
   optional string access_token_expires_at = 5;
   optional string refreshed_at = 6;
   optional string created_at = 7;
