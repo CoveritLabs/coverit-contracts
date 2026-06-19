@@ -17,7 +17,7 @@ message IntegrationStatusResponse {
   bool connected = 1;
   string provider = 2;
   repeated string scopes = 3;
-  optional UserInfo authorized_by_user = 4;
+  optional coverit.common.v1.UserInfo authorized_by_user = 4;
   optional string access_token_expires_at = 5;
   optional string refreshed_at = 6;
   optional string created_at = 7;
