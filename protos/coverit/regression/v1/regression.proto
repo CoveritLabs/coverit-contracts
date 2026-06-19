@@ -116,6 +116,47 @@ message RegressionScenario {
   int32 passed_count = 13;
   int32 failed_count = 14;
   int32 warning_count = 15;
+  repeated ScenarioIntegrationReport integration_reports = 16;
+}
+
+message JiraScenarioIntegrationReportDetails {
+  optional string issue_key = 1;
+  optional string issue_url = 2;
+}
+
+message ScenarioIntegrationReport {
+  string id = 1;
+  string project_id = 2;
+  string run_id = 3;
+  string scenario_id = 4;
+  string provider = 5;
+  string status = 6;
+  string title = 7;
+  string description = 8;
+  string reporter_user_id = 9;
+  string reporter_email = 10;
+  repeated string artifact_ids = 11;
+  repeated string attached_artifact_ids = 12;
+  optional string external_issue_key = 13;
+  optional string external_issue_url = 14;
+  optional string last_error = 15;
+  int32 attempt_count = 16;
+  string created_at = 17;
+  string updated_at = 18;
+
+  oneof details {
+    JiraScenarioIntegrationReportDetails jira = 19;
+  }
+}
+
+message CreateScenarioIntegrationReportRequest {
+  string title = 1 [(validate.rules).string.min_len = 1];
+  string description = 2 [(validate.rules).string.min_len = 1];
+  repeated string artifact_ids = 3;
+}
+
+message ScenarioIntegrationReportResponse {
+  ScenarioIntegrationReport report = 1;
 }
 
 message RegressionEvent {

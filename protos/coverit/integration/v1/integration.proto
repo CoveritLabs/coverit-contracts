@@ -26,10 +26,58 @@ message IntegrationStatusResponse {
   oneof details {
     JiraIntegrationDetails jira = 9;
   }
+
+  oneof reporting_config {
+    JiraReportingConfig jira_reporting_config = 10;
+  }
 }
 
 message JiraIntegrationDetails {
   string cloud_id = 1;
   optional string site_name = 2;
   optional string site_url = 3;
+}
+
+message JiraIssueProject {
+  string id = 1;
+  string key = 2;
+  string name = 3;
+}
+
+message JiraIssueType {
+  string id = 1;
+  string name = 2;
+}
+
+message JiraReportingConfig {
+  bool enabled = 1;
+  optional JiraIssueProject project = 2;
+  optional JiraIssueType issue_type = 3;
+}
+
+message JiraReportingOptions {
+  repeated JiraIssueProject projects = 1;
+  repeated JiraIssueType issue_types = 2;
+}
+
+message UpdateIntegrationReportingConfigRequest {
+  oneof config {
+    JiraReportingConfig jira = 1;
+  }
+}
+
+message IntegrationReportingConfigResponse {
+  string provider = 1;
+
+  oneof config {
+    JiraReportingConfig jira = 2;
+  }
+}
+
+message IntegrationReportingOptionsResponse {
+  string provider = 1;
+
+  oneof options {
+    JiraReportingOptions jira = 2;
+  }
 }
