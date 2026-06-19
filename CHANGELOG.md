@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.13.1...v1.14.0) (2026-06-19)
+
+
+### Features
+
+* Added missing crawler/session/schedule/codegen/flow DTOs to contracts ([691dfe4](https://github.com/CoveritLabs/coverit-contracts/commit/691dfe4be656ac33a42af2e8825901e32886769e))
+
 ## [1.13.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.13.0...v1.13.1) (2026-06-18)
 
 
