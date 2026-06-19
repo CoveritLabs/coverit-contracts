@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.14.0...v1.15.0) (2026-06-19)
+
+
+### Features
+
+* **integration:** add integration messages mainly for Jira ([b7292be](https://github.com/CoveritLabs/coverit-contracts/commit/b7292bea6055dcdfcc21d547d50f7f8db76950dd))
+
 # [1.14.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.13.1...v1.14.0) (2026-06-19)
 
 
