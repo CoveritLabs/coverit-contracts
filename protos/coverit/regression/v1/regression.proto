@@ -188,11 +188,34 @@ message InternalScenarioReportArtifact {
   optional int64 size_bytes = 4;
 }
 
+message ScenarioReportDescriptionMetadata {
+  string report_id = 1;
+  string scenario_id = 2;
+  string run_id = 3;
+  string provider = 4;
+  string reporter_email = 5;
+}
+
+message ScenarioReportDescriptionBlock {
+  string key = 1;
+  string type = 2;
+  string title = 3;
+  string text = 4;
+}
+
+message StructuredScenarioReportDescription {
+  string summary = 1;
+  ScenarioReportDescriptionMetadata metadata = 2;
+  string footer = 3;
+  repeated ScenarioReportDescriptionBlock blocks = 4;
+}
+
 message InternalScenarioReportContextResponse {
   ScenarioIntegrationReport report = 1;
   InternalScenarioReportAccess access = 2;
   google.protobuf.Value reporting_config = 3;
   repeated InternalScenarioReportArtifact artifacts = 4;
+  StructuredScenarioReportDescription structured_description = 5;
 }
 
 message RegressionEvent {
