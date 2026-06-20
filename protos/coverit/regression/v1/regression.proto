@@ -159,6 +159,42 @@ message ScenarioIntegrationReportResponse {
   ScenarioIntegrationReport report = 1;
 }
 
+message InternalClaimScenarioReportRequest {
+  optional string report_id = 1;
+  optional string provider = 2;
+}
+
+message InternalPatchScenarioReportRequest {
+  optional string status = 1;
+  optional string external_issue_key = 2;
+  optional string external_issue_url = 3;
+  repeated string attached_artifact_ids = 4;
+  optional string last_error = 5;
+  google.protobuf.Value provider_data = 6;
+}
+
+message InternalScenarioReportAccess {
+  string provider = 1;
+  string token_type = 2;
+  string access_token = 3;
+  string cloud_id = 4;
+  optional string site_url = 5;
+}
+
+message InternalScenarioReportArtifact {
+  string id = 1;
+  string name = 2;
+  optional string content_type = 3;
+  optional int64 size_bytes = 4;
+}
+
+message InternalScenarioReportContextResponse {
+  ScenarioIntegrationReport report = 1;
+  InternalScenarioReportAccess access = 2;
+  google.protobuf.Value reporting_config = 3;
+  repeated InternalScenarioReportArtifact artifacts = 4;
+}
+
 message RegressionEvent {
   string id = 1;
   string run_id = 2;
