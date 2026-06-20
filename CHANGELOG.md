@@ -1,3 +1,15 @@
+# [1.17.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.16.0...v1.17.0) (2026-06-20)
+
+
+### Bug Fixes
+
+* **jira:** revert variable name change ([e0a74a7](https://github.com/CoveritLabs/coverit-contracts/commit/e0a74a7d3dd3ce8900977246110b0d787137b7f4))
+
+
+### Features
+
+* add scenario reports ([931a095](https://github.com/CoveritLabs/coverit-contracts/commit/931a0952479ab0a7c86f4f34b662571de7f6fa9f))
+
 # [1.16.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.15.1...v1.16.0) (2026-06-19)
 
 
