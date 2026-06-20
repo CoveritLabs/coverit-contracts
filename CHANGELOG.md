@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.17.0...v1.18.0) (2026-06-20)
+
+
+### Features
+
+* enhance report metadata ([4b734f4](https://github.com/CoveritLabs/coverit-contracts/commit/4b734f4a5be30d828f3919584ff32bc2f3418c1f))
+
 # [1.17.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.16.0...v1.17.0) (2026-06-20)
 
 
