@@ -28,7 +28,7 @@ message IntegrationStatusResponse {
   }
 
   oneof reporting_config {
-    JiraReportingConfig jira = 10;
+    JiraReportingConfig jira_reporting_config = 10;
   }
 }
 
