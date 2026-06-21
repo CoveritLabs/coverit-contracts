@@ -41,6 +41,35 @@ enum CrawlScheduleMode {
   CRAWL_SCHEDULE_MODE_FIXED_VERSION = 2;
 }
 
+enum ManualSessionSocketMessageType {
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_UNSPECIFIED = 0;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_BROWSER_INPUT = 1;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_FLOW_START = 2;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_SESSION_DISCONNECT = 3;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_CRAWLER_READY = 4;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_SESSION_STATUS = 5;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_BROWSER_FRAME = 6;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_BROWSER_NAVIGATION = 7;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_RECORDED_EVENT = 8;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_FLOW_STARTED = 9;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_SESSION_CLOSED = 10;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_ERROR = 11;
+}
+
+enum ManualSessionStatus {
+  MANUAL_SESSION_STATUS_UNSPECIFIED = 0;
+  MANUAL_SESSION_STATUS_FRONTEND_CONNECTED = 1;
+  MANUAL_SESSION_STATUS_CRAWLER_CONNECTED = 2;
+  MANUAL_SESSION_STATUS_DISCONNECT_PENDING = 3;
+  MANUAL_SESSION_STATUS_CRAWLER_DISCONNECTED = 4;
+}
+
+enum ManualSessionDisconnectReason {
+  MANUAL_SESSION_DISCONNECT_REASON_UNSPECIFIED = 0;
+  MANUAL_SESSION_DISCONNECT_REASON_FRONTEND_DISCONNECTED = 1;
+  MANUAL_SESSION_DISCONNECT_REASON_FRONTEND_DISCONNECTED_BEFORE_READY = 2;
+}
+
 ///////////////
 // Messages
 ///////////////
@@ -199,6 +228,37 @@ message CodegenConfig {
   ];
 
   optional bool pr_draft = 5;
+}
+
+message ManualRecordingConnectResponse {
+  string session_id = 1 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string ws_ticket = 2 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 200
+  ];
+}
+
+message ManualSessionSocketMessage {
+  ManualSessionSocketMessageType type = 1 [
+    (validate.rules).enum.defined_only = true
+  ];
+
+  optional ManualSessionStatus status = 2 [
+    (validate.rules).enum.defined_only = true
+  ];
+
+  optional ManualSessionDisconnectReason reason = 3 [
+    (validate.rules).enum.defined_only = true
+  ];
+
+  optional string message = 4 [
+    (validate.rules).string.max_len = 2000
+  ];
+
+  optional google.protobuf.Value payload = 5;
 }
 
 message CrawlSessionData {
