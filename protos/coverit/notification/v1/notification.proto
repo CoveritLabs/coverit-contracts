@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package coverit.notification.v1;
+
+import "validate/validate.proto";
+
+enum CodegenNotificationStatus {
+  CODEGEN_NOTIFICATION_STATUS_UNSPECIFIED = 0;
+  CODEGEN_NOTIFICATION_STATUS_GENERATED = 1;
+  CODEGEN_NOTIFICATION_STATUS_FAILED = 2;
+}
+
+message InternalCodegenNotificationRequest {
+  CodegenNotificationStatus status = 1 [
+    (validate.rules).enum.defined_only = true
+  ];
+
+  optional string branch_name = 2 [
+    (validate.rules).string.max_len = 200
+  ];
+
+  repeated string changed_files = 3 [
+    (validate.rules).repeated.max_items = 1000,
+    (validate.rules).repeated.items.string.min_len = 1,
+    (validate.rules).repeated.items.string.max_len = 2000
+  ];
+
+  bool no_changes = 4;
+  bool pushed = 5;
+
+  optional string pull_request_url = 6 [
+    (validate.rules).string.max_len = 2048
+  ];
+
+  optional string error_message = 7 [
+    (validate.rules).string.max_len = 5000
+  ];
+}
