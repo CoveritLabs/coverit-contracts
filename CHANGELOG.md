@@ -1,3 +1,11 @@
+# [1.20.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.19.0...v1.20.0) (2026-06-21)
+
+
+### Features
+
+* add manual sessions messages ([4e41923](https://github.com/CoveritLabs/coverit-contracts/commit/4e4192342af7681d67eeadddf9de4c3be6c88b95))
+* add notifications messages ([faf7e16](https://github.com/CoveritLabs/coverit-contracts/commit/faf7e16c84b4ee4a5332d50789b46591c2260979))
+
 # [1.19.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.18.0...v1.19.0) (2026-06-21)
 
 
