@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.18.0...v1.19.0) (2026-06-21)
+
+
+### Features
+
+* add separate trigget type for automated crawling ([72d4b91](https://github.com/CoveritLabs/coverit-contracts/commit/72d4b91fc342b91d5c52542f7eba6bf11b20ab7d))
+
 # [1.18.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.17.0...v1.18.0) (2026-06-20)
 
 
