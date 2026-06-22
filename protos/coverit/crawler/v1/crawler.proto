@@ -174,6 +174,27 @@ message InputDefaultsConfig {
   map<string, string> type_fallbacks = 2;
 }
 
+message TestFlowGenerationConfig {
+  optional double coverage_percentage = 1 [
+    (validate.rules).double.gte = 0,
+    (validate.rules).double.lte = 100
+  ];
+
+  optional int32 num_of_tf = 2 [
+    (validate.rules).int32.gte = 1
+  ];
+
+  optional int32 num_of_states = 3 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 100000
+  ];
+
+  optional int32 min_num_of_states_per_tf = 4 [
+    (validate.rules).int32.gte = 1,
+    (validate.rules).int32.lte = 100000
+  ];
+}
+
 message CrawlConfig {
   reserved 2, 3, 4, 5;
   reserved "max_depth", "include_url_patterns", "exclude_url_patterns", "enable_semantic_decisions";
@@ -191,6 +212,7 @@ message CrawlConfig {
   CrawlerRunSettings crawler_settings = 7;
   InputDefaultsConfig input_defaults = 8;
   optional bool generate_test_flows = 9;
+  TestFlowGenerationConfig test_flow_generation = 10;
 }
 
 message CodegenConfig {
