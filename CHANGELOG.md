@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.21.0...v1.22.0) (2026-06-22)
+
+
+### Features
+
+* add test flow configs to the create session modal ([feb2ba2](https://github.com/CoveritLabs/coverit-contracts/commit/feb2ba275e62312772d497c3a603aa1df9f3a407))
+
 # [1.21.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.20.0...v1.21.0) (2026-06-22)
 
 
