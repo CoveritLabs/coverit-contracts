@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.22.0...v1.22.1) (2026-06-22)
+
+
+### Bug Fixes
+
+* add missing session socket message ([8a204f1](https://github.com/CoveritLabs/coverit-contracts/commit/8a204f19b520efaef2ad595268d9a2335b6824cb))
+
 # [1.22.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.21.0...v1.22.0) (2026-06-22)
 
 
