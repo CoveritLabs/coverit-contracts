@@ -175,37 +175,22 @@ message InputDefaultsConfig {
 }
 
 message CrawlConfig {
-  int32 max_states = 1 [
+  reserved 2, 3, 4, 5;
+  reserved "max_depth", "include_url_patterns", "exclude_url_patterns", "enable_semantic_decisions";
+
+  optional int32 max_states = 1 [
     (validate.rules).int32.gte = 1,
     (validate.rules).int32.lte = 100000
   ];
 
-  int32 max_depth = 2 [
-    (validate.rules).int32.gte = 1,
-    (validate.rules).int32.lte = 1000
-  ];
-
-  repeated string include_url_patterns = 3 [
-    (validate.rules).repeated.max_items = 100,
-    (validate.rules).repeated.items.string.min_len = 1,
-    (validate.rules).repeated.items.string.max_len = 2048
-  ];
-
-  repeated string exclude_url_patterns = 4 [
-    (validate.rules).repeated.max_items = 100,
-    (validate.rules).repeated.items.string.min_len = 1,
-    (validate.rules).repeated.items.string.max_len = 2048
-  ];
-
-  bool enable_semantic_decisions = 5;
-
-  int32 timeout_seconds = 6 [
+  optional int32 timeout_seconds = 6 [
     (validate.rules).int32.gte = 1,
     (validate.rules).int32.lte = 86400
   ];
 
   CrawlerRunSettings crawler_settings = 7;
   InputDefaultsConfig input_defaults = 8;
+  optional bool generate_test_flows = 9;
 }
 
 message CodegenConfig {
