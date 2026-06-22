@@ -54,6 +54,13 @@ enum ManualSessionSocketMessageType {
   MANUAL_SESSION_SOCKET_MESSAGE_TYPE_FLOW_STARTED = 9;
   MANUAL_SESSION_SOCKET_MESSAGE_TYPE_SESSION_CLOSED = 10;
   MANUAL_SESSION_SOCKET_MESSAGE_TYPE_ERROR = 11;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_FLOW_FINISH = 12;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_FLOW_COMPLETED = 13;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_BUG_REPORT = 14;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_BUG_REPORTED = 15;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_FLOW_REWIND = 16;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_FLOW_REWOUND = 17;
+  MANUAL_SESSION_SOCKET_MESSAGE_TYPE_RECORDED_STEP = 18;
 }
 
 enum ManualSessionStatus {
@@ -266,6 +273,196 @@ message ManualSessionSocketMessage {
   ];
 
   optional google.protobuf.Value payload = 5;
+}
+
+enum TestFlowType {
+  TEST_FLOW_TYPE_UNSPECIFIED = 0;
+  TEST_FLOW_TYPE_MANUAL = 1;
+  TEST_FLOW_TYPE_BUG_REPRODUCTION = 2;
+  TEST_FLOW_TYPE_COVERAGE = 3;
+}
+
+message ManualSessionRecordedEvent {
+  string id = 1 [
+    (validate.rules).string.max_len = 100
+  ];
+
+  string timestamp = 2 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  string action = 3 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 100
+  ];
+
+  optional string selector = 4 [
+    (validate.rules).string.max_len = 2000
+  ];
+
+  optional string value = 5 [
+    (validate.rules).string.max_len = 2000
+  ];
+
+  optional string page_url = 6 [
+    (validate.rules).string.max_len = 2048
+  ];
+
+  optional string accessible_name = 7 [
+    (validate.rules).string.max_len = 200
+  ];
+}
+
+message ManualSessionRecordedStep {
+  string id = 1 [
+    (validate.rules).string.max_len = 100
+  ];
+
+  int32 index = 2 [
+    (validate.rules).int32.gte = 1
+  ];
+
+  string transition_id = 3 [
+    (validate.rules).string.min_len = 1
+  ];
+
+  string source_state_hash = 4 [
+    (validate.rules).string.min_len = 1
+  ];
+
+  string target_state_hash = 5 [
+    (validate.rules).string.min_len = 1
+  ];
+
+  optional string source_url = 6 [
+    (validate.rules).string.max_len = 2048
+  ];
+
+  optional string target_url = 7 [
+    (validate.rules).string.max_len = 2048
+  ];
+
+  optional string description = 8 [
+    (validate.rules).string.max_len = 2000
+  ];
+
+  repeated ManualSessionRecordedEvent events = 9;
+}
+
+message ManualSessionFlowRewindPayload {
+  optional string step_id = 1 [
+    (validate.rules).string.max_len = 100
+  ];
+}
+
+message ManualSessionFlowRewoundPayload {
+  string session_id = 1 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string checkpoint_hash = 2 [
+    (validate.rules).string.min_len = 1
+  ];
+
+  string state_hash = 3 [
+    (validate.rules).string.min_len = 1
+  ];
+
+  optional string page_url = 4 [
+    (validate.rules).string.max_len = 2048
+  ];
+
+  repeated string kept_step_ids = 5 [
+    (validate.rules).repeated.items.string.max_len = 100
+  ];
+
+  repeated string removed_step_ids = 6 [
+    (validate.rules).repeated.items.string.max_len = 100
+  ];
+}
+
+message ManualSessionFlowCompletedPayload {
+  string session_id = 1 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string flow_id = 2 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string checkpoint_hash = 3 [
+    (validate.rules).string.min_len = 1
+  ];
+
+  repeated string transition_ids = 4 [
+    (validate.rules).repeated.min_items = 1,
+    (validate.rules).repeated.items.string.min_len = 1
+  ];
+
+  TestFlowType test_flow_type = 5 [
+    (validate.rules).enum.defined_only = true
+  ];
+}
+
+message ManualSessionBugReportPayload {
+  string summary = 1 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 500
+  ];
+
+  string severity = 2 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 50
+  ];
+
+  optional bool include_screenshot = 3;
+  optional bool include_steps = 4;
+}
+
+message TestFlowData {
+  string id = 1 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string crawl_session_id = 2 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string app_version_id = 3 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string checkpoint_state_hash = 4 [
+    (validate.rules).string.min_len = 1
+  ];
+
+  repeated string transition_refs = 5 [
+    (validate.rules).repeated.items.string.min_len = 1
+  ];
+
+  TestFlowType test_flow_type = 6 [
+    (validate.rules).enum.defined_only = true
+  ];
+
+  int32 step_count = 7 [
+    (validate.rules).int32.gte = 0
+  ];
+
+  string created_at = 8 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  optional string generated_at = 9 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  string modified_at = 10 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  string status = 11 [
+    (validate.rules).string.max_len = 50
+  ];
 }
 
 message CrawlSessionData {
