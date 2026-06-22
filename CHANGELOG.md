@@ -1,3 +1,11 @@
+# [1.21.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.20.0...v1.21.0) (2026-06-22)
+
+
+### Features
+
+* add crawler config input defaults and semantic checkbox ([010915f](https://github.com/CoveritLabs/coverit-contracts/commit/010915f852e6bb1fb8c0b63cb85329767f7b2f99))
+* add statistics schema ([2f2e012](https://github.com/CoveritLabs/coverit-contracts/commit/2f2e01237353e1448b77b6dedf97b4d5e8c7b23d))
+
 # [1.20.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.19.0...v1.20.0) (2026-06-21)
 
 
