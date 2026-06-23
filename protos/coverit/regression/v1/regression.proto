@@ -173,6 +173,32 @@ message InternalPatchScenarioReportRequest {
   google.protobuf.Value provider_data = 6;
 }
 
+message InternalCreateManualBugReportRequest {
+  string session_id = 1 [(validate.rules).string.uuid = true];
+  string flow_id = 2 [(validate.rules).string.uuid = true];
+  string checkpoint_hash = 3 [(validate.rules).string.min_len = 1];
+  repeated string transition_ids = 4 [
+    (validate.rules).repeated.min_items = 1,
+    (validate.rules).repeated.items.string.min_len = 1
+  ];
+  string summary = 5 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 500
+  ];
+  string severity = 6 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 50
+  ];
+  optional string current_url = 7 [(validate.rules).string.max_len = 2048];
+  repeated google.protobuf.Value recorded_events = 8;
+  optional string provider = 9;
+}
+
+message InternalCreateManualBugReportResponse {
+  ScenarioIntegrationReport report = 1;
+  string job_id = 2;
+}
+
 message InternalScenarioReportAccess {
   string provider = 1;
   string token_type = 2;
