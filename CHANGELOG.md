@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.22.1...v1.23.0) (2026-06-23)
+
+
+### Features
+
+* add manual report message ([ce429ff](https://github.com/CoveritLabs/coverit-contracts/commit/ce429ff1187b07dda1f71947c41174afbd76fd24))
+
 ## [1.22.1](https://github.com/CoveritLabs/coverit-contracts/compare/v1.22.0...v1.22.1) (2026-06-22)
 
 
