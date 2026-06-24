@@ -2,31 +2,32 @@ syntax = "proto3";
 
 package coverit.project.v1;
 
-message ProjectDashboardVersionRef {
-  string id = 1;
-  string version = 2;
-  string application_id = 3;
-  string application_name = 4;
+message ProjectDashboardTotals {
+  int32 total_states = 1;
+  int32 total_transitions = 2;
+  int32 total_on_demand_sessions = 3;
+  int32 total_runs = 4;
+  int32 passed_count = 5;
+  int32 warning_count = 6;
+  int32 failed_count = 7;
+  int32 reported_warning_count = 8;
+  int32 reported_failed_count = 9;
 }
 
-message ProjectCoverageSummary {
-  double percentage = 1;
-  int32 covered_transitions = 2;
-  int32 total_transitions = 3;
-  optional string crawl_session_id = 4;
-  optional string calculated_at = 5;
+message ProjectCoveragePoint {
+  string application_id = 1;
+  string application_name = 2;
+  string version_id = 3;
+  string version = 4;
+  double percentage = 5;
+  int32 covered_transitions = 6;
+  int32 total_transitions = 7;
+  int32 total_states = 8;
+  int32 session_count = 9;
+  optional string calculated_at = 10;
 }
 
-message ProjectRunStatistics {
-  int32 passed_count = 1;
-  int32 warning_count = 2;
-  int32 failed_count = 3;
-  int32 reported_warning_count = 4;
-  int32 reported_failed_count = 5;
-  int32 total_runs = 6;
-}
-
-message ProjectLatestRun {
+message ProjectRunTrendPoint {
   string id = 1;
   string run_id = 2;
   string display_name = 3;
@@ -38,36 +39,29 @@ message ProjectLatestRun {
   int32 passed_count = 9;
   int32 warning_count = 10;
   int32 failed_count = 11;
-  string created_at = 12;
+  optional int32 duration_ms = 12;
+  string created_at = 13;
 }
 
-message ProjectLatestCrawlSession {
+message ProjectCrawlSessionTrendPoint {
   string id = 1;
-  string status = 2;
-  string trigger_type = 3;
-  string application_id = 4;
-  string application_name = 5;
-  string version_id = 6;
-  string version = 7;
-  int32 state_count = 8;
-  int32 transition_count = 9;
-  string created_at = 10;
-  optional string started_at = 11;
-  optional string finished_at = 12;
+  string application_id = 2;
+  string application_name = 3;
+  string version_id = 4;
+  string version = 5;
+  int32 state_count = 6;
+  int32 transition_count = 7;
+  string created_at = 8;
+  optional string finished_at = 9;
 }
 
-message ProjectLatestTestFlow {
-  string id = 1;
-  string crawl_session_id = 2;
-  string application_id = 3;
-  string application_name = 4;
-  string version_id = 5;
-  string version = 6;
-  string checkpoint_state_hash = 7;
-  string checkpoint_url = 8;
-  bool is_clipped = 9;
-  int32 step_count = 10;
-  string created_at = 11;
+message ProjectTestFlowBreakdownPoint {
+  string type = 1;
+  int32 count = 2;
+  int32 total_steps = 3;
+  int32 generated_count = 4;
+  int32 stale_count = 5;
+  int32 pending_count = 6;
 }
 
 message ProjectActivity {
@@ -84,11 +78,11 @@ message ProjectActivity {
 }
 
 message ProjectDashboardResponse {
-  optional ProjectDashboardVersionRef selected_version = 1;
-  ProjectCoverageSummary coverage = 2;
-  ProjectRunStatistics run_statistics = 3;
-  repeated ProjectLatestRun latest_runs = 4;
-  repeated ProjectLatestCrawlSession latest_crawl_sessions = 5;
-  repeated ProjectLatestTestFlow latest_test_flows = 6;
+  ProjectDashboardTotals totals = 1;
+  repeated ProjectCoveragePoint coverage_by_application = 2;
+  repeated ProjectCoveragePoint coverage_by_version = 3;
+  repeated ProjectRunTrendPoint run_trend = 4;
+  repeated ProjectCrawlSessionTrendPoint crawl_session_trend = 5;
+  repeated ProjectTestFlowBreakdownPoint test_flow_breakdown = 6;
   repeated ProjectActivity recent_activities = 7;
 }
