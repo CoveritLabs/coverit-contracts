@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.23.0...v1.24.0) (2026-06-24)
+
+
+### Features
+
+* enhance dashboard messages ([234662b](https://github.com/CoveritLabs/coverit-contracts/commit/234662bb0d16f43a06a46135ad3d58cc8fba0fd6))
+
 # [1.23.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.22.1...v1.23.0) (2026-06-23)
 
 
