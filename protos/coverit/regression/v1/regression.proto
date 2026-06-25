@@ -242,6 +242,7 @@ message InternalScenarioReportContextResponse {
   google.protobuf.Value reporting_config = 3;
   repeated InternalScenarioReportArtifact artifacts = 4;
   StructuredScenarioReportDescription structured_description = 5;
+  optional string application_name = 6;
 }
 
 message RegressionEvent {
