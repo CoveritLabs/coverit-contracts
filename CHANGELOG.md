@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.24.0...v1.25.0) (2026-06-25)
+
+
+### Features
+
+* extend jira info ([6408c88](https://github.com/CoveritLabs/coverit-contracts/commit/6408c882e26021f303cbe4330fea4becafc2ce75))
+
 # [1.24.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.23.0...v1.24.0) (2026-06-24)
 
 
