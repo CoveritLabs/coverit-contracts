@@ -467,6 +467,244 @@ message TestFlowData {
   ];
 }
 
+message FlowEditorCrawlSessionSummary {
+  string id = 1 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string trigger_type = 2 [
+    (validate.rules).string.max_len = 80
+  ];
+
+  string status = 3 [
+    (validate.rules).string.max_len = 80
+  ];
+
+  string created_at = 4 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  optional string finished_at = 5 [
+    (validate.rules).string.max_len = 40
+  ];
+}
+
+message FlowEditorTestFlowSummary {
+  string id = 1 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string crawl_session_id = 2 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string app_version_id = 3 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string app_version_name = 4 [
+    (validate.rules).string.max_len = 200
+  ];
+
+  string checkpoint_state_hash = 5 [
+    (validate.rules).string.min_len = 1
+  ];
+
+  repeated string transition_refs = 6 [
+    (validate.rules).repeated.items.string.min_len = 1
+  ];
+
+  string test_flow_type = 7 [
+    (validate.rules).string.max_len = 80
+  ];
+
+  int32 step_count = 8 [
+    (validate.rules).int32.gte = 0
+  ];
+
+  int32 editor_step_count = 9 [
+    (validate.rules).int32.gte = 0
+  ];
+
+  string status = 10 [
+    (validate.rules).string.max_len = 80
+  ];
+
+  string created_at = 11 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  optional string generated_at = 12 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  string modified_at = 13 [
+    (validate.rules).string.max_len = 40
+  ];
+
+  FlowEditorCrawlSessionSummary crawl_session = 14;
+}
+
+message FlowEditorPosition {
+  string edge = 1 [
+    (validate.rules).string.max_len = 20
+  ];
+
+  string transition_id = 2 [
+    (validate.rules).string.min_len = 1
+  ];
+}
+
+message FlowEditorViewport {
+  double width = 1;
+  double height = 2;
+}
+
+message FlowEditorElementBox {
+  double x = 1;
+  double y = 2;
+  double width = 3;
+  double height = 4;
+}
+
+message FlowEditorElementRef {
+  optional string selector = 1 [
+    (validate.rules).string.max_len = 2000
+  ];
+
+  repeated string selector_candidates = 2 [
+    (validate.rules).repeated.items.string.max_len = 2000
+  ];
+
+  optional string tag = 3 [
+    (validate.rules).string.max_len = 80
+  ];
+
+  optional string text = 4 [
+    (validate.rules).string.max_len = 500
+  ];
+
+  optional string accessible_name = 5 [
+    (validate.rules).string.max_len = 500
+  ];
+
+  map<string, string> attributes = 6;
+
+  optional string page_url = 7 [
+    (validate.rules).string.max_len = 2048
+  ];
+
+  optional string state_hash = 8 [
+    (validate.rules).string.max_len = 200
+  ];
+
+  FlowEditorElementBox box = 9;
+  FlowEditorViewport viewport = 10;
+}
+
+message FlowEditorStepStateLabel {
+  string state_hash = 1 [
+    (validate.rules).string.min_len = 1
+  ];
+
+  string label = 2 [
+    (validate.rules).string.max_len = 500
+  ];
+
+  string labeling_status = 3 [
+    (validate.rules).string.max_len = 80
+  ];
+}
+
+message FlowEditorTransitionStep {
+  string id = 1 [
+    (validate.rules).string.max_len = 500
+  ];
+
+  int32 index = 2 [
+    (validate.rules).int32.gte = 1
+  ];
+
+  string transition_id = 3 [
+    (validate.rules).string.min_len = 1
+  ];
+
+  string label = 4 [
+    (validate.rules).string.max_len = 500
+  ];
+
+  optional string action = 5 [
+    (validate.rules).string.max_len = 100
+  ];
+
+  string labeling_status = 6 [
+    (validate.rules).string.max_len = 80
+  ];
+
+  FlowEditorStepStateLabel from_state = 7;
+  FlowEditorStepStateLabel to_state = 8;
+}
+
+message FlowEditorDraftStep {
+  string id = 1 [
+    (validate.rules).string.max_len = 100
+  ];
+
+  string kind = 2 [
+    (validate.rules).string.max_len = 80
+  ];
+
+  FlowEditorPosition position = 3;
+
+  int32 order = 4 [
+    (validate.rules).int32.gte = 0
+  ];
+
+  string label = 5 [
+    (validate.rules).string.max_len = 500
+  ];
+
+  FlowEditorElementRef element = 6;
+  google.protobuf.Struct definition = 7;
+
+  string created_at = 8 [
+    (validate.rules).string.max_len = 80
+  ];
+
+  string updated_at = 9 [
+    (validate.rules).string.max_len = 80
+  ];
+}
+
+message FlowEditorDetailResponse {
+  FlowEditorTestFlowSummary flow = 1;
+  repeated FlowEditorTransitionStep transition_steps = 2;
+  repeated FlowEditorDraftStep editor_steps = 3;
+}
+
+message SaveFlowEditorStepsRequest {
+  repeated FlowEditorDraftStep editor_steps = 1;
+}
+
+message SaveFlowEditorStepsResponse {
+  repeated FlowEditorDraftStep editor_steps = 1;
+
+  int32 editor_step_count = 2 [
+    (validate.rules).int32.gte = 0
+  ];
+}
+
+message FlowEditorConnectResponse {
+  string editor_session_id = 1 [
+    (validate.rules).string.uuid = true
+  ];
+
+  string ws_ticket = 2 [
+    (validate.rules).string.min_len = 1,
+    (validate.rules).string.max_len = 200
+  ];
+}
+
 message CrawlSessionData {
   string id = 1 [
     (validate.rules).string.uuid = true
