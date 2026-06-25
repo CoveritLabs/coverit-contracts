@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.25.0...v1.26.0) (2026-06-25)
+
+
+### Features
+
+* add flow editor messages ([6615f60](https://github.com/CoveritLabs/coverit-contracts/commit/6615f60827dad47b623e8d0e7c79eae6eb7bc4fb))
+
 # [1.25.0](https://github.com/CoveritLabs/coverit-contracts/compare/v1.24.0...v1.25.0) (2026-06-25)
 
 
